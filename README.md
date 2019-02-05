@@ -22,13 +22,13 @@ Backend service where admin can:
 1. Clone this repository :
 
 	```
-    $ git clone https://github.com/a-braham/Questioner.git
+    $ git clone https://github.com/lenileiro/politico-api.git
     ```
 
 2. CD into the project folder on your machine
 
 	```
-    $ cd Questioner
+    $ cd politico-api
     $ pip install virtualenv
     ```
 
