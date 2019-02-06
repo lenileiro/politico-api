@@ -7,32 +7,30 @@
 ## Politico-api
 
 Backend service where admin can:
-
-- Create a political party.
-- Get all political parties.
-- Get a specific political party.
-- Edit a specific political party.
-- Delete a particular party.
-- Create a political office.
-- Get all political offices.
-- Get a specific political office.
+ Create a political party.
+ Get all political parties.
+ Get a specific political party.
+ Edit a specific political party.
+ Delete a particular party.
+ Create a political office.
+ Get all political offices.
+ Get a specific political office.
 
 ## Prerequisites
 
-- Python 3.6.7
-- Postman
-
+Python 3.6.7
+Postman
 
 ## Installation
 
-1. Clone this repository :
+Clone this repository:
 
     ```bash
     #!/bin/bash
     $ git clone https://github.com/lenileiro/politico-api.git
     ```
 
-2. CD into the project folder on your machine
+CD into the project folder on your machine
 
     ```bash
     #!/bin/bash
@@ -40,28 +38,28 @@ Backend service where admin can:
     $ pip install virtualenv
     ```
 
-3. Create a virtual environment
+Create a virtual environment
 
    ```bash
     #!/bin/bash
     $ virtualenv venv
     ```
 
-4. Activate the virtual environment
+Activate the virtual environment
 
     ```bash
     #!/bin/bash
     $ source venv/bin/activate
     ```
 
-5. Install the dependencies from the requirements file
+Install the dependencies from the requirements file
 
     ```bash
     #!/bin/bash
     $ pip install -r requirements.txt
     ```
 
-6. Run the application
+Run the application
 
     ```bash
     #!/bin/bash
