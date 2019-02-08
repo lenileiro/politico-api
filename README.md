@@ -85,11 +85,6 @@ Install
         $ python manage.py server
 
 ### Running the tests
-
-Export server's secret key to the environment by:
-     $ export SECRET_KEY='set-your-secret-key-here'
-
-
 Run the tests by:
 
     $ pytest
