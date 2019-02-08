@@ -1,0 +1,30 @@
+"""These is the views file for party"""
+
+from flask import Blueprint, request, make_response, jsonify
+from ..models import office_model
+office = office_model.OfficeModel()
+office_route = Blueprint('office', __name__, url_prefix='/api/v1/offices') 
+
+###create party
+@office_route.route('', methods=['POST']) 
+def create_chat_messages():
+    """"This route enables admin user
+      - to create political party"""
+    
+    data = request.get_json()
+    type_data = data.get('type')
+    name_data = data.get('name')
+
+    if name_data and type_data:
+        new_info = office.create_office(type_data, name_data)
+        return make_response(jsonify({"status": 201,
+                                      "data": [{
+                                          "id": new_info["id"],
+                                          "type": new_info["type"],
+                                          "name": new_info["name"]
+                                          }]})), 201
+    else:
+      return make_response(jsonify({"status": 400,
+                                      "data": [{
+                                          "message": "some required fields missing"}]})), 400
+

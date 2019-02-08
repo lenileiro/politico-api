@@ -7,7 +7,7 @@ parties_route = Blueprint('party', __name__, url_prefix='/api/v1/parties')
 
 ###delete party
 @parties_route.route('/<int:party_id>',methods=['DELETE']) 
-def delete_chat_messages(party_id):
+def delete_politicial_party(party_id):
     """"This route enables admin user
       - to delete party pass party id as parameter"""
 
@@ -24,7 +24,7 @@ def delete_chat_messages(party_id):
 
 ###edit party
 @parties_route.route('/<int:party_id>/name', methods=['PATCH']) 
-def edit_chat_messages(party_id):
+def edit_political_party(party_id):
     """"This route enables admin user
       - to edit political party passing party id as parameter"""
     
@@ -46,7 +46,7 @@ def edit_chat_messages(party_id):
 
 ###create party
 @parties_route.route('', methods=['POST']) 
-def create_chat_messages():
+def create_political_party():
     """"This route enables admin user
       - to create political party"""
     
@@ -57,11 +57,11 @@ def create_chat_messages():
 
     if name_data and address_data and logo_data:
         new_info = party.create_party(name_data, address_data, logo_data)
-        return make_response(jsonify({"status": 200,
+        return make_response(jsonify({"status": 201,
                                       "data": [{
                                           "id": new_info["id"],
                                           "name": new_info["name"]
-                                          }]})), 200
+                                          }]})), 201
     else:
       return make_response(jsonify({"status": 400,
                                       "data": [{
