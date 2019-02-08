@@ -1,21 +1,44 @@
 """These is the views file for party"""
 
-from flask import Blueprint, make_response, jsonify
+from flask import Blueprint,request, make_response, jsonify
 from ..models import party_model
-PARTY = party_model.PartyModel()
+party = party_model.PartyModel()
 parties_route = Blueprint('party', __name__, url_prefix='/api/v1/parties') 
 
 ###delete party
 @parties_route.route('/<int:party_id>',methods=['DELETE']) 
-def post_chat_messages(party_id):
+def delete_chat_messages(party_id):
     """"This route enables admin user
       - to delete party pass party id as parameter"""
 
-    data = PARTY.delete_party(party_id)
-    if data:
-        return make_response(jsonify({"status": 200,
+    party_info = party.find_party(party_id)
+    if party_info:
+        party.delete_party(party_id)
+        return make_response(jsonify({"status": 204,
                                       "data": [{
-                                          "message": "delete successful"}]})), 200
+                                          "message": "delete successful"}]})), 204
+    else:
+        return make_response(jsonify({"status": 400,
+                                      "data": [{
+                                          "message": "Id not found"}]})), 400
+
+###edit party
+@parties_route.route('/<int:party_id>/name', methods=['PATCH']) 
+def edit_chat_messages(party_id):
+    """"This route enables admin user
+      - to edit political party passing party id as parameter"""
+    
+    data = request.get_json()
+    name_data = data.get('name')
+
+    party_info = party.find_party(party_id)
+    if party_info:
+        new_info = party.edit_party(party_id, name_data)
+        return make_response(jsonify({"status": 204,
+                                      "data": [{
+                                          "id": party_id,
+                                          "name": new_info["name"]
+                                          }]})), 204
     else:
       return make_response(jsonify({"status": 400,
                                       "data": [{
