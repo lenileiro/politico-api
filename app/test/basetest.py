@@ -65,6 +65,12 @@ class BaseTest(unittest.TestCase):
             "/api/v1/parties/", content_type="application/json"
         )
         return response
+    
+    def valid_office_get_request(self):
+        response = self.client.get(
+            "/api/v1/offices", content_type="application/json"
+        )
+        return response
         
     def valid_patch_request(self):
         response = self.client.patch('/api/v1/parties/1/name', data=json.dumps(self.edit_party),

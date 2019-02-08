@@ -28,3 +28,15 @@ def create_chat_messages():
                                       "data": [{
                                           "message": "some required fields missing"}]})), 400
 
+
+###Get all offices
+@office_route.route('', methods=['GET']) 
+def return_political_offices():
+    """"This route enables citizen user
+      - to view all political offices"""
+    response = office.return_offices()
+  
+    return make_response(jsonify({"status": 200,
+                                  "data": response
+                                  })), 200
+

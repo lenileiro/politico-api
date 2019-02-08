@@ -20,7 +20,7 @@ class TestDeleteRequest(BaseTest):
         self.assertEqual(result["data"][0]["message"], "delete successful")
 
 class TestGetRequest(BaseTest):    
-    def test_invalid_delete_request(self):
+    def test_valid_get_request(self):
         response = self.valid_get_request()
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 200)
