@@ -46,8 +46,6 @@ class BaseTest(unittest.TestCase):
                 "name": "President"
             }
 
-
-
     def valid_delete_request(self):
         response = self.client.delete(
             "/api/v1/parties/2", content_type="application/json"
@@ -63,6 +61,12 @@ class BaseTest(unittest.TestCase):
     def valid_get_request(self):
         response = self.client.get(
             "/api/v1/parties/", content_type="application/json"
+        )
+        return response
+    
+    def valid_individual_get_request(self):
+        response = self.client.get(
+            "/api/v1/parties/1", content_type="application/json"
         )
         return response
     
