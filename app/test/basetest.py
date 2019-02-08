@@ -12,9 +12,31 @@ class BaseTest(unittest.TestCase):
         """ Defining test variables """
         app.config.from_object(instance.config.Testing)
         self.client = app.test_client()
-        self.patch_party = {
+        self.edit_party = {
             "name": "new political party name"
         }
+
+        self.create_party_1 ={
+            "name" : 'party C',
+            "hqAddress" : 'box 148, Nairobi',
+            "logoUrl" : 'https://via.placeholder.com/150' 
+        }
+
+        self.create_party_2 ={
+            "name" : 'party C',
+            "logoUrl" : 'https://via.placeholder.com/150' 
+        }
+
+        self.create_party_3 ={
+            "name" : 'party C',
+            "hqAddress" : 'box 148, Nairobi'
+        }
+        self.create_party_4 ={
+            "hqAddress" : 'box 148, Nairobi',
+            "logoUrl" : 'https://via.placeholder.com/150' 
+        }
+
+
 
     def valid_delete_request(self):
         response = self.client.delete(
@@ -29,15 +51,40 @@ class BaseTest(unittest.TestCase):
         return response
     
     def valid_patch_request(self):
-        response = self.client.delete(
-            "/api/v1/parties/1/name",data=json.dumps(self.patch_party), content_type="application/json"
-        )
+        response = self.client.patch('/api/v1/parties/1/name', data=json.dumps(self.edit_party),
+                                        content_type="application/json")
+            
         return response
 
     def invalid_patch_request(self):
-        response = self.client.delete(
-            "/api/v1/parties/10000/name",data=json.dumps(self.patch_party), content_type="application/json"
-        )
+        response = self.client.patch('/api/v1/parties/10000/name', data=json.dumps(self.edit_party),
+                                        content_type="application/json")
         return response
+    
+    def valid_post_request(self):
+        response = self.client.post('/api/v1/parties', data=json.dumps(self.create_party_1),
+                                        content_type="application/json")
+            
+        return response
+    
+    def invalid_post_request_1(self):
+        response = self.client.post('/api/v1/parties', data=json.dumps(self.create_party_2),
+                                        content_type="application/json")
+            
+        return response
+    
+    def invalid_post_request_2(self):
+        response = self.client.post('/api/v1/parties', data=json.dumps(self.create_party_3),
+                                        content_type="application/json")
+            
+        return response
+    
+    def invalid_post_request_3(self):
+        response = self.client.post('/api/v1/parties', data=json.dumps(self.create_party_4),
+                                        content_type="application/json")
+            
+        return response
+    
+
 if __name__ == "__main__":
     unittest.main()

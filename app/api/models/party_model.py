@@ -40,4 +40,16 @@ class PartyModel:
         value.update({'name' : new_name})
         self.parties.insert(party_id - 1, value)
         return value
-        
+
+    def create_party(self, new_name, new_address, new_logo):
+        """creates new political party"""
+        new_party = {
+                "id" : len(self.parties) + 1,
+                "name" : new_name,
+                "hqAddress" : new_address,
+                "logoUrl" : new_logo
+
+            }
+
+        self.parties.append(new_party)
+        return new_party
