@@ -26,3 +26,11 @@ class TestGetRequest(BaseTest):
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(result["status"], 200)
+    
+
+    def test_valid_individual_get_request(self):
+        response = self.valid_individual_office_get_request()
+        result = json.loads(response.data.decode('utf-8'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(result["status"], 200)
+        self.assertEqual(result["data"][0]["id"], 1)

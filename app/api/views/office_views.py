@@ -40,3 +40,16 @@ def return_political_offices():
                                   "data": response
                                   })), 200
 
+###Get individual office
+@office_route.route('/<int:party_id>', methods=['GET']) 
+def return_political_party(party_id):
+    """"This route enables citizen user
+      - to view individual political office"""
+    response = office.find_office(party_id)
+
+    return make_response(jsonify({"status": 200,
+                                  "data": [{
+                                          "id": response[0]["id"],
+                                          "type": response[0]["type"],
+                                          "name": response[0]["name"]
+                                          }]})), 200

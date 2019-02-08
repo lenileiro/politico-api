@@ -70,6 +70,12 @@ class BaseTest(unittest.TestCase):
         )
         return response
     
+    def valid_individual_office_get_request(self):
+        response = self.client.get(
+            "/api/v1/offices/1", content_type="application/json"
+        )
+        return response
+    
     def valid_office_get_request(self):
         response = self.client.get(
             "/api/v1/offices", content_type="application/json"
