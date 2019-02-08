@@ -53,3 +53,7 @@ class PartyModel:
 
         self.parties.append(new_party)
         return new_party
+    
+    def return_parties(self):
+        """Return all parties in the list"""
+        return self.parties
