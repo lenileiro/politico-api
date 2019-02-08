@@ -78,4 +78,18 @@ def return_political_parties():
                                   "data": response
                                   })), 200
 
+###Get individual parties
+@parties_route.route('/<int:party_id>', methods=['GET']) 
+def return_political_party(party_id):
+    """"This route enables citizen user
+      - to view individual political party"""
+    response = party.find_party(party_id)
+
+    return make_response(jsonify({"status": 200,
+                                  "data": [{
+                                          "id": response[0]["id"],
+                                          "name": response[0]["name"],
+                                          "logoUrl": response[0]["logoUrl"]
+                                          }]})), 200
+
 
