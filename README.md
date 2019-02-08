@@ -7,14 +7,15 @@
 ## Politico-api-v1
 Politico-api-v1 is collection of API endpoint that admin and citizen user store through data structure.
 
-### Description
-Politico enables citizens give their mandate to politicians running for different government offices  while building trust in the process through transparency.
 
 ### Development
 This Application is developed using python pure [Flask](http://flask.pocoo.org/docs/1.0/).The data is stored on python data structures
 
-### Git hub Link
+### Github Link
 Please click [Github Link](https://github.com/lenileiro/politico-api/tree/develop) to view api the hosted source code on github.
+
+### Heroku Link
+Please click [Heroku Link](https://politico-v1-api.herokuapp.com/api/v1) to view api documentation and heroku api link
 
 
 ### Endpoints
@@ -39,43 +40,61 @@ Please click [Github Link](https://github.com/lenileiro/politico-api/tree/develo
 - [Pip3](https://pypi.org/project/pip/) (Python package installer)
 
 
-### Getting Started:
+## Installation
 
-**To start the app, please follow the instructions below:**
+Clone this repository:
 
-**On your terminal:**
+    ```bash
+    #!/bin/bash
+    $ git clone https://github.com/lenileiro/politico-api.git
+    ```
 
-Install pip:
-Install
-Install sudo apt-get install python-pip
-Install
-- Clone this repository:
+CD into the project folder on your machine
 
-        $ git clone https://github.com/Nduhiu17/politico-server.git
+    ```bash
+    #!/bin/bash
+    $ cd politico-api
+    $ pip install virtualenv
+    ```
 
-- Get into the root directory:
+Create a virtual environment
 
-        $ cd politico-api/
+   ```bash
+    #!/bin/bash
+    $ virtualenv venv
+    ```
 
-- Install virtual environment:
+Activate the virtual environment
 
-        $ virtual venv 
+    ```bash
+    #!/bin/bash
+    $ source venv/bin/activate
+    ```
 
-- Activate the virtual environment:
+Install the dependencies from the requirements file
 
-        $ source virtual/bin/activate
-  
-- Install requirements
+    ```bash
+    #!/bin/bash
+    $ pip install -r requirements.txt
+    ```
 
-        $ pip install -r requirements.txt
+Run the application
+
+    ```bash
+    #!/bin/bash
+    export FLASK_APP=run.py
+    export FLASK_ENV=development
+    export FLASK_DEBUG=1
+    PYTHONDONTWRITEBYTECODE=1 flask run
+    ```
+
+Run test
+
+    ```bash
+    #!/bin/bash
+    PYTHONDONTWRITEBYTECODE=1 python -m pytest
+    ```
 
 
-
-- Run the app by:
-
-        $ python run.py
-
-### Running the tests
-Run the tests by:
-
-    $ pytest
+### author
+[Anthony Leiro](https://twitter.com/AnthonyLeni)
