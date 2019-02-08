@@ -35,6 +35,16 @@ class BaseTest(unittest.TestCase):
             "hqAddress" : 'box 148, Nairobi',
             "logoUrl" : 'https://via.placeholder.com/150' 
         }
+        self.create_office_1 = {
+                "type" : 'national',
+                "name": "President"
+            }
+        self.create_office_2 = {
+                "type" : 'national'
+            }
+        self.create_office_3 = {
+                "name": "President"
+            }
 
 
 
@@ -85,6 +95,23 @@ class BaseTest(unittest.TestCase):
             
         return response
     
+    def valid_office_post_request(self):
+        response = self.client.post('/api/v1/offices', data=json.dumps(self.create_office_1),
+                                        content_type="application/json")
+            
+        return response
+    
+    def invalid_office_post_request_1(self):
+        response = self.client.post('/api/v1/offices', data=json.dumps(self.create_office_2),
+                                        content_type="application/json")
+            
+        return response
+    
+    def invalid_office_post_request_2(self):
+        response = self.client.post('/api/v1/offices', data=json.dumps(self.create_office_3),
+                                        content_type="application/json")
+            
+        return response
 
 if __name__ == "__main__":
     unittest.main()
