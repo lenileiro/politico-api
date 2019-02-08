@@ -67,3 +67,15 @@ def create_political_party():
                                       "data": [{
                                           "message": "some required fields missing"}]})), 400
 
+###Get all parties
+@parties_route.route('/', methods=['GET']) 
+def return_political_parties():
+    """"This route enables citizen user
+      - to view all political parties"""
+    response = party.return_parties()
+
+    return make_response(jsonify({"status": 200,
+                                  "data": response
+                                  })), 200
+
+
