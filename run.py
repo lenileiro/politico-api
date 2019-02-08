@@ -2,7 +2,7 @@
 import os
 
 from app import create_app
-config_name = os.getenv("FLASK_ENV")
+config_name = os.getenv("FLASK_ENV",'production')
 
 APP = create_app(config_name)
 
