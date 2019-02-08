@@ -4,17 +4,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/lenileiro/politico-api/badge.svg?branch=develop)](https://coveralls.io/github/lenileiro/politico-api?branch=develop)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a2ba7d88ba0b45189d58fd361e33cea6)](https://www.codacy.com/app/lenileiro/politico-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lenileiro/politico-api&amp;utm_campaign=Badge_Grade)
 
-## Politico-api
-
-Backend service where admin and citizen user can:
- Create a political party.
- Get all political parties.
- Get a specific political party.
- Edit a specific political party.
- Delete a particular party.
- Create a political office.
- Get all political offices.
- Get a specific political office.
+## Politico-api-v1
+Politico-api-v1 is collection of API endpoint that admin and citizen user store through data structure.
 
 ### Description
 Politico enables citizens give their mandate to politicians running for different government offices  while building trust in the process through transparency.
@@ -64,11 +55,11 @@ Install
 
 - Get into the root directory:
 
-        $ cd politico-server/
+        $ cd politico-api/
 
-- Install virtual enviroment:
+- Install virtual environment:
 
-        $ python3.6 -m venv virtual
+        $ virtual venv 
 
 - Activate the virtual environment:
 
@@ -82,7 +73,7 @@ Install
 
 - Run the app by:
 
-        $ python manage.py server
+        $ python run.py
 
 ### Running the tests
 Run the tests by:
