@@ -66,5 +66,12 @@ Run the application
     export FLASK_APP=run.py
     export FLASK_ENV=development
     export FLASK_DEBUG=1
-    flask run
+    PYTHONDONTWRITEBYTECODE=1 flask run
+    ```
+
+Run test
+
+    ```bash
+    #!/bin/bash
+    PYTHONDONTWRITEBYTECODE=1 python -m pytest
     ```
