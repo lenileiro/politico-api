@@ -41,7 +41,6 @@ class OfficeModel:
 
         self.offices.append(new_office)
         return new_office
-    
     def return_offices(self):
         """Return all offices in the list"""
         return self.offices
