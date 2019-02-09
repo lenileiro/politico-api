@@ -18,17 +18,16 @@ Below are the Endpoints that have been created.
 | api/v1/parties | Create party| POST |
 | api/v1/parties | Fetch all parties |GET|
 | api/v1/parties/<int:party_id> |Fetch single party |GET|
-| api/v1/parties/<int:party_id>/delete |Delete party |DELETE|
-| api/v1/parties/<int:party_id>/edit|Edit party |PATCH|
-| api/v2/offices |Create office |POST|
-| api/v2/offices |Fetch all offices |GET|
-| api/v2/offices/<int:office_id> |Fetch single office |GET|
-| api/v2/offices/<int:office_id>/delete |Delete office |DELETE|
-| api/v2/offices/<int:office_id>/edit |Update office |PATCH|
-| api/v3/users |Create account |POST|
-| api/v4/candidates |Show interest |POST|
-| api/v5/voters |Vote |POST|
-| api/v2/petitions |File petition |POST|
+| api/v1/parties/<int:party_id> |Delete party |DELETE|
+| api/v1/parties/<int:party_id>/name|Edit party |PATCH|
+| api/v1/offices |Create office |POST|
+| api/v1/offices |Fetch all offices |GET|
+| api/v1/offices/<int:office_id> |Fetch single office |GET|
+
+### Heroku Link
+
+ Navigate to this [link](https://politico-v1-api.herokuapp.com/) to run the application on heroku
+
 
 ### TOOLS USED IN THE CHALLENGE
 

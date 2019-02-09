@@ -8,6 +8,5 @@ def create_app(config_name):
     from .api.v1.views import party_views, office_views
     app.register_blueprint(party_views.parties_route)
     app.register_blueprint(office_views.office_route)
-    
     return app
     
