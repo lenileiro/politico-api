@@ -64,7 +64,8 @@ Below are the Endpoints that have been created.
 
         ```
 3 Activate the virtual environment
-        
+
+    
         ```bash
             source venv/bin/activate
 
@@ -72,7 +73,7 @@ Below are the Endpoints that have been created.
 
 4 Install project dependencies
 
-        ```bash
+         ```bash
             pip install -r requirements.txt
 
         ```
