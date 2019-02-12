@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: https://localhost:5000 
+HOST: https://politico-v2-api.herokuapp.com
 
 # Politico Api Endpoints
 
@@ -52,7 +52,7 @@ This is the Politico API Endpoints documentation.
         - data
             - Include Party A
 
-### Edit the name of a specific ​ political party [DELETE /{id}]
+### Delete a specific ​ political party [DELETE /{id}]
 
 + Parameter
     + id : `1`
@@ -135,9 +135,9 @@ This is the Politico API Endpoints documentation.
     + Attributes
         - status: `201` (number)
         - data
-            -token: `45erkjherht45495783` (string)
-            -user
-                - Include Citizen User
+            - token: `45erkjherht45495783` (string)
+            - user
+                - Include UserInfo
 
 ### Login a user [POST /login]
 + Response 200 (application/json)
@@ -145,9 +145,9 @@ This is the Politico API Endpoints documentation.
     + Attributes
         - status: `200` (number)
         - data
-            -token: `45erkjherht45495783` (string)
-            -user
-                - Include Citizen User
+            - token: `45erkjherht45495783` (string)
+            - user
+                - Include UserInfo
 
 ### password reset [POST /reset/]
 + Response 200 (application/json)
@@ -227,7 +227,7 @@ This is the Politico API Endpoints documentation.
 - result: `56700` (number) - total vote for the candidate
 
 
-## Citizen User (object)
+## UserInfo (object)
 - id: `12` (number)
 - firstname: `John` (string)
 - lastname: `Joe` (string)
