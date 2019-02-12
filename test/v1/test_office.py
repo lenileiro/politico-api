@@ -18,14 +18,14 @@ class TestPostRequest(BaseTest):
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 400)
         self.assertEqual(result["status"], 400)
-        self.assertEqual(result["data"][0]["message"], "some required fields missing")
+        self.assertEqual(result["message"], "Name cannot be empty")
     
     def test_invalid_post_request_2(self):
         response = self.client.post('/api/v1/offices', data=json.dumps(create_office_3), content_type="application/json")
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 400)
         self.assertEqual(result["status"], 400)
-        self.assertEqual(result["data"][0]["message"], "some required fields missing")
+        self.assertEqual(result["message"], "type cannot be empty")
 
 
 class TestGetRequest(BaseTest):    

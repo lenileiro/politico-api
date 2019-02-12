@@ -14,8 +14,20 @@ def create_chat_messages():
     data = request.get_json()
     type_data = data.get('type')
     name_data = data.get('name')
+    
+    if not type_data:
+      return make_response(jsonify({
+            "status": 400,
+            "message": "type cannot be empty"
+        })), 400
 
-    if name_data and type_data:
+    if not name_data:
+      return make_response(jsonify({
+            "status": 400,
+            "message": "Name cannot be empty"
+        })), 400
+    
+    else:
         new_info = office.create_office(type_data, name_data)
         return make_response(jsonify({"status": 201,
                                       "data": [{
@@ -23,10 +35,6 @@ def create_chat_messages():
                                           "type": new_info["type"],
                                           "name": new_info["name"]
                                           }]})), 201
-    else:
-      return make_response(jsonify({"status": 400,
-                                      "data": [{
-                                          "message": "some required fields missing"}]})), 400
 
 
 ###Get all offices
@@ -46,10 +54,15 @@ def return_political_party(party_id):
     """"This route enables citizen user
       - to view individual political office"""
     response = office.find_office(party_id)
-
-    return make_response(jsonify({"status": 200,
+    if response:
+      return make_response(jsonify({"status": 200,
                                   "data": [{
                                           "id": response[0]["id"],
                                           "type": response[0]["type"],
                                           "name": response[0]["name"]
                                           }]})), 200
+    else:
+       return make_response(jsonify({
+            "status": 400,
+            "message": "Office Id not found"
+        })), 400

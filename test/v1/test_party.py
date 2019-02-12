@@ -10,7 +10,7 @@ class TestDeleteRequest(BaseTest):
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 400)
         self.assertEqual(result["status"], 400)
-        self.assertEqual(result["data"][0]["message"], "Id not found")
+        self.assertEqual(result["data"][0]["message"], "Party Id not found")
     
     def test_valid_delete_request(self):
         response = self.client.delete(
@@ -64,18 +64,18 @@ class TestPostRequest(BaseTest):
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 400)
         self.assertEqual(result["status"], 400)
-        self.assertEqual(result["data"][0]["message"], "some required fields missing")
+        self.assertEqual(result["message"], "address cannot be empty")
     
     def test_invalid_post_request_2(self):
         response = self.client.post('/api/v1/parties', data=json.dumps(create_party_3), content_type="application/json")
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 400)
         self.assertEqual(result["status"], 400)
-        self.assertEqual(result["data"][0]["message"], "some required fields missing")
+        self.assertEqual(result["message"], "Logo cannot be empty")
     
     def test_invalid_post_request_3(self):
         response = self.client.post('/api/v1/parties', data=json.dumps(create_party_4), content_type="application/json")
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 400)
         self.assertEqual(result["status"], 400)
-        self.assertEqual(result["data"][0]["message"], "some required fields missing")
+        self.assertEqual(result["message"], "Name cannot be empty")

@@ -20,7 +20,7 @@ def delete_politicial_party(party_id):
     else:
         return make_response(jsonify({"status": 400,
                                       "data": [{
-                                          "message": "Id not found"}]})), 400
+                                          "message": "Party Id not found"}]})), 400
 
 ###edit party
 @parties_route.route('/<int:party_id>/name', methods=['PATCH']) 
@@ -32,6 +32,13 @@ def edit_political_party(party_id):
     name_data = data.get('name')
 
     party_info = party.find_party(party_id)
+
+    if not name_data:
+      return make_response(jsonify({
+            "status": 400,
+            "message": "Name cannot be empty"
+        })), 400
+
     if party_info:
         new_info = party.edit_party(party_id, name_data)
         return make_response(jsonify({"status": 200,
@@ -55,17 +62,31 @@ def create_political_party():
     address_data = data.get('hqAddress')
     logo_data = data.get('logoUrl')
 
-    if name_data and address_data and logo_data:
+    if not name_data:
+      return make_response(jsonify({
+            "status": 400,
+            "message": "Name cannot be empty"
+        })), 400
+    
+    if not address_data:
+      return make_response(jsonify({
+            "status": 400,
+            "message": "address cannot be empty"
+        })), 400
+
+    if not logo_data:
+      return make_response(jsonify({
+            "status": 400,
+            "message": "Logo cannot be empty"
+        })), 400
+
+    else:
         new_info = party.create_party(name_data, address_data, logo_data)
         return make_response(jsonify({"status": 201,
                                       "data": [{
                                           "id": new_info["id"],
                                           "name": new_info["name"]
                                           }]})), 201
-    else:
-      return make_response(jsonify({"status": 400,
-                                      "data": [{
-                                          "message": "some required fields missing"}]})), 400
 
 ###Get all parties
 @parties_route.route('/', methods=['GET']) 
@@ -84,12 +105,14 @@ def return_political_party(party_id):
     """"This route enables citizen user
       - to view individual political party"""
     response = party.find_party(party_id)
-
-    return make_response(jsonify({"status": 200,
+    if response:
+      return make_response(jsonify({"status": 200,
                                   "data": [{
                                           "id": response[0]["id"],
                                           "name": response[0]["name"],
                                           "logoUrl": response[0]["logoUrl"]
                                           }]})), 200
-
-
+    else:
+      return make_response(jsonify({"status": 400,
+                                      "data": [{
+                                          "message": "Party Id not found"}]})), 400
