@@ -14,7 +14,7 @@ def delete_politicial_party(party_id):
     party_info = party.find_party(party_id)
     if party_info:
         party.delete_party(party_id)
-        return make_response(jsonify({"status": 200 ,
+        return make_response(jsonify({"status": 200,
                                       "data": [{
                                           "message": "delete successful"}]})), 200
     else:
