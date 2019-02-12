@@ -2,8 +2,7 @@
 
 import json
 from .base_test import BaseTest 
-from utils.dummy import create_office_1, create_office_2, create_office_3
-
+from utils.v1.dummy_office import create_office_1, create_office_2, create_office_3
 class TestPostRequest(BaseTest):    
     def test_valid_post_request(self):
         response = self.client.post('/api/v1/offices', data=json.dumps(create_office_1), content_type="application/json")

@@ -1,0 +1,238 @@
+FORMAT: 1A
+HOST: https://localhost:5000 
+
+# Politico Api Endpoints
+
+
+This is the Politico API Endpoints documentation.
+
+# Group Parties
+
+## Parties Collections [/api/v2/parties]
+
+### Fetch all Political Parties [GET]
+
++ Response 200 (application/json)
+   
+    + Attributes
+        - status: `200` (number)
+        - data(array[Party A,Party B])
+
+
+### Create a ​political party​ [POST]
+
++ Response 201 (application/json)
+   
+    + Attributes
+        - status: `201` (number)
+        - data
+            - Include Party A
+
+### Fetch a specific ​ political party​ record [GET /{id}]
+
++ Parameter
+    + id : `1`
+
++ Response 200 (application/json)
+   
+    + Attributes
+        - status: `200` (number)
+        - data
+            - Include Party A
+
+### Edit the name of a specific ​ political party [PATCH /{id}/name]
+
++ Parameter
+    + id : `1`
+
++ Response 201 (application/json)
+   
+    + Attributes
+        - status: `201` (number)
+        - data
+            - Include Party A
+
+### Edit the name of a specific ​ political party [DELETE /{id}]
+
++ Parameter
+    + id : `1`
+
++ Response 200 (application/json)
+   
+    + Attributes
+        - status: `200` (number)
+        - data
+            - message: `delete successful` (string)
+
+
+
+# Group Office
+
+## Office Collections [/api/v2/office]
+
+### Citizen can register as a candidate [POST /{id}/register]
++ Parameter
+    + id : `1`
+
++ Response 201 (application/json)
+   
+    + Attributes
+        - status: `201` (number)
+        - data
+            - office: `125` (number) - office unique id
+            - candidate: `0023` (number) - candidate unique id  
+
+### Collate and fetch the result of specific office following a concluded election [GET /{id}/result]
++ Parameter
+    + id : `1`
+
++ Response 200 (application/json)
+   
+    + Attributes
+        - status: `200` (number)
+        - data(array[Candidate 1, Candidate 2, Candidate 3])
+           
+
+## Offices Collections [/api/v2/offices]
+
+### Create a ​ political office​ [POST]
+
++ Response 201 (application/json)
+   
+    + Attributes
+        - status: `201` (number)
+        - data
+            - Include Governor
+
+### Fetch all ​ political offices​ records [GET]
+
++ Response 200 (application/json)
+   
+    + Attributes
+        - status: `200` (number)
+        - data(array[Governor, MP])
+
+### Fetch a specific ​ political office​ record [GET /{id}]
++ Parameter
+    + id : `1`
+
++ Response 200 (application/json)
+   
+    + Attributes
+        - status: `200` (number)
+        - data
+            - Include Governor
+
+
+# Group Auth
+
+## Auth Collections [/api/v2/auth]
+
+### Create a user account [POST /signup]
+
++ Response 201 (application/json)
+   
+    + Attributes
+        - status: `201` (number)
+        - data
+            -token: `45erkjherht45495783` (string)
+            -user
+                - Include Citizen User
+
+### Login a user [POST /login]
++ Response 200 (application/json)
+   
+    + Attributes
+        - status: `200` (number)
+        - data
+            -token: `45erkjherht45495783` (string)
+            -user
+                - Include Citizen User
+
+### password reset [POST /reset/]
++ Response 200 (application/json)
+   
+    + Attributes
+        - status: `200` (number)
+        - data
+            -message: `check your email to reset password` (string)
+            -email: `johndoe@gmail.com` (string)
+
+
+# Group Root
+
+## Root Collections [/api/v2]
+
+### Vote for a ​candidate​ [POST /votes/]
+
++ Response 201 (application/json)
+   
+    + Attributes
+        - status: `201` (number)
+        - data
+            - office: `125` (number) - office unique id
+            - candidate: `0023` (number) - candidate unique id
+            - voter: `0156242` (number) - voter unique id
+
+### Create ​ petitions ​[POST /petitions/]
+
++ Response 201 (application/json)
+   
+    + Attributes
+        - status: `201` (number)
+        - data
+            - id: `000100` (number) - petition unique id
+            - office: `125` (number) - office unique id
+            - voter: `0156242` (number) - voter unique id
+            - text: `Returning Office rigging the voting material` (string)
+            - evidence: `https:\\demo.com\video-evidence.mp4` (string)
+
+# Data Structures
+
+## Party A (object)
+
+- id: `1` (number)
+- name: `Party A` (string)
+
+## Party B (object)
+
+- id: `2` (number)
+- name: `Party B` (string)
+
+## Governor(object)
+
+- id: `1` (number)
+- type: `county government` (string)
+- name: `Governor` (string)
+
+## MP(object)
+
+- id: `1` (number)
+- type: `national government` (string)
+- name: `member of parliament` (string)
+
+## Candidate 1 (object)
+- office: `125` (number) - office unique id
+- candidate: `0023` (number) - candidate unique id
+- result: `20100` (number) - total vote for the candidate
+
+## Candidate 2 (object)
+- office: `125` (number) - office unique id
+- candidate: `0024` (number) - candidate unique id
+- result: `34100` (number) - total vote for the candidate
+
+## Candidate 3 (object)
+- office: `125` (number) - office unique id
+- candidate: `0025` (number) - candidate unique id
+- result: `56700` (number) - total vote for the candidate
+
+
+## Citizen User (object)
+- id: `12` (number)
+- firstname: `John` (string)
+- lastname: `Joe` (string)
+- othername: `smith` (string)
+- email: `johndoe@gmail.com` (string)
+- phoneNumber: `+254724862149` (string)
+- passportUrl: `https://demo.com/image.jpg` (string)
+- isAdmin: `false` (boolean)
