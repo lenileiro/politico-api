@@ -13,6 +13,8 @@ section and use data structures to store data in memory
 
 Below are the Endpoints that have been created.
 
+### Party Endpoints
+
 | EndPoints       | Functionality  | HTTP Method  |
 | ------------- |:-------------:| -----:|
 | api/v1/parties | Create party| POST |
@@ -20,6 +22,11 @@ Below are the Endpoints that have been created.
 | api/v1/parties/<int:party_id> |Fetch single party |GET|
 | api/v1/parties/<int:party_id> |Delete party |DELETE|
 | api/v1/parties/<int:party_id>/name|Edit party |PATCH|
+
+### Office Endpoint
+
+| EndPoints       | Functionality  | HTTP Method  |
+| ------------- |:-------------:| -----:|
 | api/v1/offices |Create office |POST|
 | api/v1/offices |Fetch all offices |GET|
 | api/v1/offices/<int:office_id> |Fetch single office |GET|
@@ -37,6 +44,51 @@ Below are the Endpoints that have been created.
 4. Testing Framework:[PyTest, a Python Testing Framework](https://docs.pytest.org/en/latest/)
 5. Testing Endpoints: [PostMan](https://www.getpostman.com/)
 6. Testing Framework:[Coverage, a Python Testing Framework](https://coverage.readthedocs.io/en/v4.5.x/)
+
+### Setup and Installation
+
+1 Clone repo from github
+
+        ```bash
+            git clone https://github.com/lenileiro/politico-api.git
+
+            cd politico-api
+
+            git checkout develop branch
+        ```
+
+2 Create a virtual environment
+
+        ```bash
+            virtualenv venv
+
+        ```
+3 Activate the virtual environment
+        ```bash
+            source venv/bin/activate
+
+        ```
+
+4 Install project dependencies
+         ```bash
+            pip install -r requirements.txt
+
+        ```
+
+### Running Application
+
+        ```bash
+            source .env
+            python run.py
+
+        ```
+
+### Running Tests
+
+        ```bash
+            coverage run --source=app -m pytest && coverage report
+
+        ```
 
 ### author
 
