@@ -28,7 +28,7 @@ This is the Politico API Endpoints documentation.
         - data
             - Include Party A
 
-### Fetch a specific ​ political party​ record [GET /{id}]
+### Fetch a specific ​ political party​ record [GET /api/v2/parties/{id}]
 
 + Parameter
     + id : `1`
@@ -40,7 +40,7 @@ This is the Politico API Endpoints documentation.
         - data
             - Include Party A
 
-### Edit the name of a specific ​ political party [PATCH /{id}/name]
+### Edit the name of a specific ​ political party [PATCH /api/v2/parties/{id}/name]
 
 + Parameter
     + id : `1`
@@ -52,7 +52,7 @@ This is the Politico API Endpoints documentation.
         - data
             - Include Party A
 
-### Delete a specific ​ political party [DELETE /{id}]
+### Delete a specific ​ political party [DELETE /api/v2/parties/{id}]
 
 + Parameter
     + id : `1`
@@ -70,7 +70,7 @@ This is the Politico API Endpoints documentation.
 
 ## Office Collections [/api/v2/office]
 
-### Citizen can register as a candidate [POST /{id}/register]
+### register a candidate as a candidate [POST /api/v2/office/{id}/register]
 + Parameter
     + id : `1`
 
@@ -82,7 +82,7 @@ This is the Politico API Endpoints documentation.
             - office: `125` (number) - office unique id
             - candidate: `0023` (number) - candidate unique id  
 
-### Collate and fetch the result of specific office following a concluded election [GET /{id}/result]
+### Collate and fetch the result of specific office following a concluded election [GET /api/v2/office/{id}/result]
 + Parameter
     + id : `1`
 
@@ -112,7 +112,7 @@ This is the Politico API Endpoints documentation.
         - status: `200` (number)
         - data(array[Governor, MP])
 
-### Fetch a specific ​ political office​ record [GET /{id}]
+### Fetch a specific ​ political office​ record [GET /api/v2/offices/{id}]
 + Parameter
     + id : `1`
 
@@ -128,7 +128,7 @@ This is the Politico API Endpoints documentation.
 
 ## Auth Collections [/api/v2/auth]
 
-### Create a user account [POST /signup]
+### Create a user account [POST /api/v2/auth/signup]
 
 + Response 201 (application/json)
    
@@ -139,7 +139,7 @@ This is the Politico API Endpoints documentation.
             - user
                 - Include UserInfo
 
-### Login a user [POST /login]
+### Login a user [POST /api/v2/auth/login]
 + Response 200 (application/json)
    
     + Attributes
@@ -149,7 +149,7 @@ This is the Politico API Endpoints documentation.
             - user
                 - Include UserInfo
 
-### password reset [POST /reset/]
+### password reset [POST /api/v2/auth/reset/]
 + Response 200 (application/json)
    
     + Attributes
