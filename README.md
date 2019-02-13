@@ -8,8 +8,8 @@
 
 ## v1 endpoint
 
-This project developer is to create a set of API endpoints defined in the API Endpoints Specification
-section and use data structures to store data in memory 
+Project developer is to create a set of API endpoints defined in the API Endpoints Specification
+section and use data structures to store data in memory
 
 Below are the Endpoints that have been created.
 
@@ -31,10 +31,67 @@ Below are the Endpoints that have been created.
 | api/v1/offices |Fetch all offices |GET|
 | api/v1/offices/<int:office_id> |Fetch single office |GET|
 
-### Heroku Link
+### Heroku Link (version 1)
 
  Navigate to this [link](https://politico-v1-api.herokuapp.com/) to run the application on heroku
 
+## v2 endpoint
+
+This project developer is to create a set of API endpoints defined in the API Endpoints Specification
+section and use database to persist data.
+
+
+Below are the Endpoints that have been created.
+
+### Party (v2) Endpoints
+
+| EndPoints       | Functionality  | HTTP Method  |
+| ------------- |:-------------:| -----:|
+| api/v2/parties | Create party| POST |
+| api/v2/parties | Fetch all parties |GET|
+| api/v2/parties/<int:party_id> |Fetch single party |GET|
+| api/v2/parties/<int:party_id> |Delete party |DELETE|
+| api/v2/parties/<int:party_id>/name|Edit party |PATCH|
+
+### Office (v2) Endpoint
+
+#### Office
+
+| EndPoints       | Functionality  | HTTP Method  |
+| ------------- |:-------------:| -----:|
+| api/v2/office/<int:office_id>/register |Register Citizen as a Candidate |POST|
+| api/v2/office/<int:office_id>/results |Fetch result of specific office |GET|
+
+#### Offices
+
+| EndPoints       | Functionality  | HTTP Method  |
+| ------------- |:-------------:| -----:|
+| api/v2/offices |Create office |POST|
+| api/v2/offices |Fetch all offices |GET|
+| api/v2/offices/<int:office_id> |Fetch single office |GET|
+
+### Auth (v2) Endpoint
+
+| EndPoints       | Functionality  | HTTP Method  |
+| ------------- |:-------------:| -----:|
+| api/v2/auth/signup |Create a user account |POST|
+| api/v2/auth/login |Login a User |POST|
+| api/v2/auth/reset/ |Password Reset |POST|
+
+### Root (v2) Endpoint
+
+| EndPoints       | Functionality  | HTTP Method  |
+| ------------- |:-------------:| -----:|
+| api/v2/votes/ |Vote for a candidate |POST|
+| api/v2/petitions/ |Create Petitions |POST|
+
+### Heroku Link (version 2)
+
+ Navigate to this [link](https://politico-v2-api.herokuapp.com/api/v2) to run the application on heroku
+
+### Api Endpoint Documentation (version 2)
+
+ Link to documentation Page [link](https://politico-v2-api.herokuapp.com)
 
 ### TOOLS USED IN THE CHALLENGE
 
