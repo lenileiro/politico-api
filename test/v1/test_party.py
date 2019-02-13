@@ -1,7 +1,7 @@
 import json
 from .base_test import BaseTest
 
-from utils.dummy import create_party_1,create_party_2,create_party_3,create_party_4,edit_party
+from utils.v1.dummy_party import create_party_1,create_party_2,create_party_3,create_party_4,edit_party
 
 class TestDeleteRequest(BaseTest):    
     def test_invalid_delete_request(self):

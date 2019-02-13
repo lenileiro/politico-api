@@ -1,4 +1,4 @@
-from flask import Flask, make_response, jsonify
+from flask import Flask, make_response, jsonify, render_template 
 from instance.config import app_config
 
 def create_app(config_name):
@@ -8,6 +8,10 @@ def create_app(config_name):
     from .api.v1.views import party_views, office_views
     app.register_blueprint(party_views.parties_route)
     app.register_blueprint(office_views.office_route)
+
+    @app.route("/")
+    def index():
+        return render_template("api-docs.html")
 
     @app.errorhandler(404)
     def resource_not_found(message):
