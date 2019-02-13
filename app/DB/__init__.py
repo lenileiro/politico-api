@@ -66,10 +66,7 @@ class DB:
                 office INTEGER NOT NULL, 
                 body VARCHAR (256) NOT NULL);
             """
-
-            ## self.save_incoming_data_or_updates(user)
-            ## self.save_incoming_data_or_updates(party)
-            ## self.save_incoming_data_or_updates(office)
+            
             tables = [petition, vote, candidate, office, party, user]
             for table in tables:
                 self.save_incoming_data_or_updates(table)
