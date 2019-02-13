@@ -46,33 +46,37 @@ class DB:
             candidate = """
             CREATE TABLE IF NOT EXISTS candidates (
                 c_id SERIAL PRIMARY KEY NOT NULL, 
-                c_office INTEGER REFERENCES office(o_id), 
-                c_party INTEGER REFERENCES party(p_id), 
-                c_candidate INTEGER REFERENCES user(u_id));
+                c_office INTEGER NOT NULL, 
+                c_party  INTEGER NOT NULL,  
+                c_candidate INTEGER NOT NULL);
             """
             vote = """
             CREATE TABLE IF NOT EXISTS vote (
                 c_id SERIAL PRIMARY KEY NOT NULL, 
                 createdOn DATE NOT NULL, 
-                createdBy INTEGER REFERENCES user(u_id), 
-                office INTEGER REFERENCES office(o_id), 
-                c_candidate INTEGER REFERENCES candidates(c_id));
+                createdBy INTEGER NOT NULL, 
+                office INTEGER NOT NULL, 
+                c_candidate INTEGER NOT NULL);
             """
             petition = """
             CREATE TABLE IF NOT EXISTS petition (
                 p_id SERIAL PRIMARY KEY NOT NULL, 
                 createdOn DATE NOT NULL, 
-                createdBy INTEGER REFERENCES user(u_id), 
-                office INTEGER REFERENCES office(o_id), 
+                createdBy INTEGER NOT NULL, 
+                office INTEGER NOT NULL, 
                 body VARCHAR (256) NOT NULL);
             """
 
-            tables = [user, party, office, candidate, vote, petition]
+            ## self.save_incoming_data_or_updates(user)
+            ## self.save_incoming_data_or_updates(party)
+            ## self.save_incoming_data_or_updates(office)
+            tables = [petition, vote, candidate, office, party, user]
             for table in tables:
                 self.save_incoming_data_or_updates(table)
+            
                 
         except Exception as e:
-            print("Database exception: %s" % e)
+            return("Database exception: %s" % e)
 
     def fetch_single_data_row(self, query):
         """ retreives a single row of data from a table """
