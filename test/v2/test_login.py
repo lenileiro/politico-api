@@ -33,8 +33,8 @@ class TestPostRequest(BaseTest):
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 400)
         self.assertEqual(result["status"], 400)
-        self.assertEqual(result["message"], "password cannot be empty")
-        self.assertIsInstance(result["message"], str)
+        self.assertEqual(result["data"], "password cannot be empty")
+        self.assertIsInstance(result["data"], str)
 
     def test_user_login_no_national_id(self):
         user = {
@@ -45,8 +45,8 @@ class TestPostRequest(BaseTest):
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 400)
         self.assertEqual(result["status"], 400)
-        self.assertEqual(result["message"], "national_id cannot be empty")
-        self.assertIsInstance(result["message"], str)
+        self.assertEqual(result["data"], "national_id cannot be empty")
+        self.assertIsInstance(result["data"], str)
 
     def test_user_login_invalid_password(self):
         user = {
@@ -57,7 +57,7 @@ class TestPostRequest(BaseTest):
             "/api/v2/auth/login",data=json.dumps(user), content_type="application/json")
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(result["data"]["message"], "Invalid Password")
+        self.assertEqual(result["data"]["message"] , "Invalid Password")
         self.assertIsInstance(result["data"]["message"], str)
     
     def test_non_registered_user(self):
