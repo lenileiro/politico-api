@@ -15,7 +15,7 @@ def init_db(url):
 
 
     schema = """
-            CREATE SCHEMA [ IF NOT EXISTS ] politico;
+            CREATE SCHEMA IF NOT EXISTS politico;
     """
 
     user = """

@@ -6,7 +6,7 @@ install:
     - pip install -r requirements.txt
 
 env:
-  - DATABASE_URI="dbname='politico' host='127.0.0.1' port='5432' user='admin' password='admin123'"
+  - DATABASE_URI="dbname='politico' host='127.0.0.1' port='5432' user='postgres' password='postgres'"
   
 
 services:
@@ -14,20 +14,7 @@ services:
 
 before_script:
   - psql -c "CREATE DATABASE politico;" -U postgres
-  - psql -c "CREATE OR REPLACE FUNCTION create_mytable ()
-              RETURNS void AS
-            $func$
-            BEGIN
-              IF EXISTS (SELECT 1 FROM pg_catalog.pg_tables 
-                          WHERE  schemaname = 'politico') THEN
-                  RAISE NOTICE 'Table politico already exists.';
-              ELSE
-                  CREATE TABLE politico;
-              END IF;
-            END
-            $func$ LANGUAGE plpgsql;" -U postgres
-            
-  - psql -c "SELECT create_mytable(); ;" -U postgres
+  - psql -c "CREATE SCHEMA IF NOT EXISTS  politico;" -U postgres
   
   - psql -c "CREATE USER admin WITH PASSWORD 'admin123';" -U postgres
 
