@@ -8,8 +8,8 @@ def conn():
     con = psycopg2.connect(DATABASE_URI)
     return con
 
-def init_db(url):
-    DATABASE_URI = os.getenv('DATABASE_URL', url)
+def init_db():
+    DATABASE_URI = os.getenv('DATABASE_URL')
     con = psycopg2.connect(DATABASE_URI)
     cur = con.cursor()
 
