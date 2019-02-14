@@ -1,5 +1,6 @@
 import os
 import jwt
+from datetime import datetime
 from app.DB.tables import conn
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -48,7 +49,53 @@ class AuthModel:
             }
 
         cursor.close()
-    
+
+    def create_a_user_account(self, params):
+        created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        password = generate_password_hash(params.password)
+        user = {
+            "national_id": params.national_id,
+            "firstname": params.firstname,
+            "lastname": params.lastname,
+            "othername": params.othername,
+            "email": params.email,
+            "isadmin": params.isadmin,
+            "phone": params.phone,
+            "password": password,
+            "passporturl": params.passporturl,
+            "created_at": created_at
+        }
+        query = """
+            INSERT INTO politico.user
+            (national_id, firstname, lastname, othername, 
+             email, phone, isadmin, password, passporturl,created_at)
+            VALUES (%(national_id)s, %(firstname)s, %(lastname)s, %(othername)s, 
+            %(email)s, %(phone)s, %(isadmin)s,%(password)s,%(passporturl)s, %(created_at)s)
+            """
+
+        cursor = self.db.cursor()
+        cursor.execute(query, user)
+        self.db.commit()
+        token = self.generate_jwt_token(user)
+
+        response = {
+                    "token": token,
+                    "user": {
+                        "national_id": params.national_id,
+                        "firstname": params.firstname,
+                        "lastname": params.lastname,
+                        "othername": params.othername,
+                        "email": params.email,
+                        "isadmin": params.isadmin,
+                        "phone": params.phone,
+                        "password": password,
+                        "passporturl": params.passporturl
+                    }
+                }
+
+                
+        return response
+
     def generate_jwt_token(self, payload):
         fileDir = os.path.dirname(os.path.realpath('__file__'))
         filename = os.path.join(fileDir, './utils/keys/jwt-key')
