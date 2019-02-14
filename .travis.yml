@@ -5,8 +5,20 @@ python:
 install:
     - pip install -r requirements.txt
 
+env:
+  - DATABASE_URI="dbname='politico' host='127.0.0.1' port='5432' user='admin' password='admin123'"
+  
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c "CREATE DATABASE politico;" -U postgres
+  - psql -c "CREATE USER admin WITH PASSWORD 'admin123';" -U postgres
+
+
 script:
-    - coverage run --source=app/api/v1 -m pytest  --ignore=test/v2  && coverage report
+    - coverage run --source=app/api/v1 -m pytest test/v1  && coverage report
 
 after_success:
     - coveralls
