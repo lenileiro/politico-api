@@ -13,8 +13,7 @@ services:
   - postgresql
 
 before_script:
-  - psql -c "CREATE DATABASE politico;" -su postgres
-  - psql -c "CREATE USER admin WITH PASSWORD 'admin123';" -su postgres
+  - sudo -u postgres psql -c "CREATE DATABASE politico;" 
 
 addons:
   postgresql: "10"
