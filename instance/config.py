@@ -18,6 +18,7 @@ class Production(Config):
     DEBUG = False
     TESTING = False
     DATABASE_URI = os.getenv("DATABASE_PROC_URL",'')
+    
 app_config = {
     'development': Development,
     'testing': Testing,

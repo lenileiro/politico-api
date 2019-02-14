@@ -8,11 +8,17 @@ def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(app_config[config_name])
     with app.app_context():
-        print(app.config['DATABASE_URI'])
+        database.connect_to(app.config['DATABASE_URI'])
+        database.init_db()
 
     from .api.v1.views import party_views, office_views
     app.register_blueprint(party_views.parties_route)
     app.register_blueprint(office_views.office_route)
+
+    ### Register v2 routes
+    from .api.v2.views.auth_views import auth_route
+
+    app.register_blueprint(auth_route)
 
     @app.route("/")
     def index():

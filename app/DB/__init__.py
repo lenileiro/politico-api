@@ -3,28 +3,52 @@ import psycopg2
 
 class DB:
     """Database connection class"""
-    def __init__(self):
-        self.conn = ''
-        self.cur = ''
 
-    def connect_to(self, url):
-        """connect to database"""
-        self.conn = psycopg2.connect(url)
-        self.cur = self.conn.cursor()
+    @classmethod
+    def connect_to(cls, url):
+        cls.conn = psycopg2.connect(url)
 
-    def fetch_single_data_row(self, query):
-        """ retreives a single row of data from a table """
-        self.cur.execute(query)
-        fetchedRow = self.cur.fetchone()
-        return fetchedRow
+    @classmethod
+    def send_con(cls):
+        cls.cursor = cls.conn.cursor()
+        return cls.conn
+    
+    
+    @classmethod
+    def init_db(cls):
+        """create database tables"""
+        schema = """
+        CREATE SCHEMA IF NOT EXISTS politico
+        """
 
-    def save_incoming_data_or_updates(self, query):
-        """ saves data passed as a query to the stated table """
-        self.cur.execute(query)
-        self.conn.commit()
+        user = """
+                CREATE TABLE IF NOT EXISTS politico.user (
+                    id SERIAL PRIMARY KEY NOT NULL,
+                    national_id INTEGER NOT NULL, 
+                    firstname VARCHAR (100) NOT NULL, 
+                    lastname VARCHAR (100) NOT NULL, 
+                    othername VARCHAR (100), 
+                    email VARCHAR (100) NOT NULL, 
+                    phone VARCHAR (100) NOT NULL, 
+                    isadmin VARCHAR (6) NOT NULL, 
+                    password VARCHAR (250) NOT NULL, 
+                    passporturl VARCHAR (100) NOT NULL, 
+                    created_at TIMESTAMP);
+                """
+        con = cls.send_con()
+        cur = con.cursor()
+        cur.execute(schema)
+        con.commit()
+        cur.execute(user)
+        con.commit()
 
-    def fetch_all_tables_rows(self, query):
-        """ fetches all rows of data store """
-        self.cur.execute(query)
-        all_data_rows = self.cur.fetchall()
-        return all_data_rows
+    @classmethod
+    def destoy_db(cls):
+        """Delete database"""
+        schema = """
+         DROP SCHEMA IF EXISTS politico CASCADE;
+        """
+        con = cls.send_con()
+        cur = con.cursor()
+        cur.execute(schema)
+        con.commit()
