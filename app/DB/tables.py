@@ -6,6 +6,7 @@ import os
 def conn():
     DATABASE_URI = os.getenv('DATABASE_URL')
     con = psycopg2.connect(DATABASE_URI)
+    init_db()
     return con
 
 def init_db():
