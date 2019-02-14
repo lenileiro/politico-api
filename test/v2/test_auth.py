@@ -19,7 +19,7 @@ class TestPostRequest(BaseTest):
         self.assertIsInstance(result["data"]["user"]["email"], str)
         self.assertIsInstance(result["data"]["user"]["phoneNumber"], str)
         self.assertIsInstance(result["data"]["user"]["passportUrl"], str)
-        self.assertIsInstance(result["data"]["user"]["isAdmin"], bool)
+        self.assertIsInstance(result["data"]["user"]["isAdmin"], str)
 
     def test_user_login(self):
         response = self.client.post(
@@ -38,7 +38,7 @@ class TestPostRequest(BaseTest):
         self.assertIsInstance(result["data"]["user"]["email"], str)
         self.assertIsInstance(result["data"]["user"]["phoneNumber"], str)
         self.assertIsInstance(result["data"]["user"]["passportUrl"], str)
-        self.assertIsInstance(result["data"]["user"]["isAdmin"], bool)
+        self.assertIsInstance(result["data"]["user"]["isAdmin"], str)
 
     def test_password_reset(self):
         response = self.client.post(
