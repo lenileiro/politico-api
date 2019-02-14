@@ -4,12 +4,12 @@ import os
 
 
 def conn():
-    DATABASE_URI = os.getenv('DATABASE_URL', "dbname='politico' user='postgres' host='localhost' password=''")
+    DATABASE_URI = os.getenv('DATABASE_URL')
     con = psycopg2.connect(DATABASE_URI)
     return con
 
 def init_db(url):
-    DATABASE_URI = os.getenv('DATABASE_URL', "dbname='politico' user='postgres' host='localhost' password=''")
+    DATABASE_URI = os.getenv('DATABASE_URL')
     con = psycopg2.connect(DATABASE_URI)
     cur = con.cursor()
 
