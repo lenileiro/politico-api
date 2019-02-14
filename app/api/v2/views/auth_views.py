@@ -65,3 +65,13 @@ def create_a_user_account():
         params = Params(national_id, firstname, lastname, othername, email, phone, isadmin, password, passporturl)
         result = auth.create_a_user_account(params)
         return make_response(jsonify({'status': 201, 'data': result}), 201)
+
+@auth_route.route('/reset/', methods=['POST']) 
+def password_reset():
+    data = request.get_json()
+    ### Fields
+    email = data.get('email')
+    if not email:
+        return Serializer.serialize("email cannot be empty", 400)
+    else:
+        return make_response(jsonify({'status': 200, 'data': {"message":"check your email to reset password","email":email}}), 200)
