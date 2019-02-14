@@ -14,8 +14,6 @@ services:
 
 before_script:
   - sudo -u postgres psql -c "CREATE DATABASE politico;" 
-  - sudo export DATABASE_URL="dbname='politico' host='127.0.0.1' port='5432' user='postgres' password='postgres'"
-
 addons:
   postgresql: "10"
   apt:
