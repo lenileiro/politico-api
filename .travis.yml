@@ -5,8 +5,35 @@ python:
 install:
     - pip install -r requirements.txt
 
+env:
+  - DATABASE_URL="dbname='politico' user='admin' host='localhost' password='admin123'"
+  
+
+services:
+  - postgresql
+
+before_script:
+  - sudo -u postgres psql -c "CREATE DATABASE politico;" 
+  - sudo -u postgres psql -c "CREATE SCHEMA IF NOT EXISTS politico;"
+  - sudo -u postgres psql -c "CREATE USER admin WITH PASSWORD 'admin123';"
+  - sudo -u postgres psql -c "ALTER USER admin WITH SUPERUSER;"
+
+  - PYTHONDONTWRITEBYTECODE=1 python app/DB/create_table.py
+  - PYTHONDONTWRITEBYTECODE=1 python app/DB/mock_user.py
+
+addons:
+  postgresql: "10"
+  apt:
+    packages:
+    - postgresql-10
+    - postgresql-client-10
+env:
+  global:
+  - PGPORT=5433
+  - DATABASE_URL="dbname='politico' user='admin' host='localhost' password='admin123'"
+
 script:
-    - coverage run --source=app/api/v1 -m pytest  --ignore=test/v2  && coverage report
+    - coverage run --source=app/api -m pytest test && coverage report
 
 after_success:
     - coveralls

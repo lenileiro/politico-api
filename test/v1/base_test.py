@@ -2,8 +2,6 @@ import json
 import unittest
 import instance
 from app import create_app
-from app.DB import DB
-database = DB()
 
 app = create_app("testing")
 
