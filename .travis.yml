@@ -14,7 +14,7 @@ services:
 
 before_script:
   - psql -c "CREATE DATABASE politico;" -U postgres
-  - psql -c "CREATE SCHEMA politico;" -U postgres
+  - psql -c "CREATE SCHEMA [ IF NOT EXISTS ] politico;" -U postgres
   
   - psql -c "CREATE USER admin WITH PASSWORD 'admin123';" -U postgres
 
