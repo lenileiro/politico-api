@@ -16,7 +16,16 @@ before_script:
   - psql -c "CREATE DATABASE politico;" -U postgres
   - psql -c "CREATE USER admin WITH PASSWORD 'admin123';" -U postgres
 
-
+addons:
+  postgresql: "10"
+  apt:
+    packages:
+    - postgresql-10
+    - postgresql-client-10
+env:
+  global:
+  - PGPORT=5433
+  
 script:
     - coverage run --source=app/api -m pytest test && coverage report
 
