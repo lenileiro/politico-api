@@ -2,9 +2,11 @@ import json
 from .base_test import BaseTest
 
 class TestPostRequest(BaseTest): 
-    def test_user_login(self):
+    def test_password_reset(self):
         user = {
-            "email": "johndoe@gmail.com"
+            "national_id": 44332211,
+            "email": "johndoe@gmail.com",
+            "password": "124"
         }
         response = self.client.post(
             "/api/v2/auth/reset/",data=json.dumps(user), content_type="application/json")

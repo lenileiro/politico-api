@@ -14,6 +14,7 @@ class AuthModel:
             """SELECT * FROM politico.user where national_id={} """.format(national_id)
         )
         user = cursor.fetchone()
+        cursor.close()
 
         if user:
             ### User not empty 
@@ -48,7 +49,6 @@ class AuthModel:
                 "message": "User not registered"
             }
 
-        cursor.close()
 
     def create_a_user_account(self, params):
         created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -102,3 +102,26 @@ class AuthModel:
         secret_key = open(filename).read()
         token = jwt.encode(payload, secret_key, algorithm='HS256').decode('utf-8')
         return token
+
+    def reset_password(self, national_id, email, password):
+        cursor = self.db.cursor()
+        cursor.execute(
+            """SELECT * FROM politico.user where national_id={} """.format(national_id)
+        )
+        user = cursor.fetchone()
+        password = generate_password_hash(password)
+
+        cursor1 = self.db.cursor()
+        query = """
+            UPDATE politico.user SET password = '{}' WHERE id = '{}'
+            """.format(password, user[0])
+        cursor1.execute(query)
+
+        
+
+        cursor.close()
+        response = {
+            "message":"Check your mail for confirmation",
+            "email": email
+            }
+        return response
