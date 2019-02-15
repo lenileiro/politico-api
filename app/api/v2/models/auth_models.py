@@ -109,19 +109,18 @@ class AuthModel:
             """SELECT * FROM politico.user where national_id={} """.format(national_id)
         )
         user = cursor.fetchone()
-        password = generate_password_hash(password)
+        if user:
+            password = generate_password_hash(password)
 
-        cursor1 = self.db.cursor()
-        query = """
-            UPDATE politico.user SET password = '{}' WHERE id = '{}'
-            """.format(password, user[0])
-        cursor1.execute(query)
+            cursor1 = self.db.cursor()
+            query = """
+                UPDATE politico.user SET password = '{}' WHERE id = '{}'
+                """.format(password, user[0])
+            cursor1.execute(query)
 
-        
-
-        cursor.close()
-        response = {
-            "message":"Check your mail for confirmation",
-            "email": email
-            }
-        return response
+            cursor.close()
+            response = {
+                "message":"Check your mail for confirmation",
+                "email": email
+                }
+            return response
