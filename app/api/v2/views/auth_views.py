@@ -71,7 +71,14 @@ def password_reset():
     data = request.get_json()
     ### Fields
     email = data.get('email')
+    national_id = data.get('national_id')
+    password = data.get('password')
     if not email:
         return Serializer.serialize("email cannot be empty", 400)
+    if not national_id:
+        return Serializer.serialize("national_id cannot be empty", 400)
+    if not password:
+        return Serializer.serialize("password cannot be empty", 400)
     else:
-        return make_response(jsonify({'status': 200, 'data': {"message":"check your email to reset password","email":email}}), 200)
+        result = auth.reset_password(national_id, email, password)
+        return make_response(jsonify({'status': 200, 'data': result}), 200)
