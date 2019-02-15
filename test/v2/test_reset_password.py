@@ -14,6 +14,3 @@ class TestPostRequest(BaseTest):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(result["status"], 200)
         self.assertIsInstance(result["status"], int)
-        self.assertIsInstance(result["data"], dict)
-        self.assertIsInstance(result["data"]["message"], str)
-        self.assertIsInstance(result["data"]["email"], str)
