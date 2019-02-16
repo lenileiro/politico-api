@@ -3,6 +3,7 @@ import jwt
 from datetime import datetime
 from app.DB.tables import conn
 from werkzeug.security import generate_password_hash, check_password_hash
+from app.api.v2.utils.generator import generate_jwt_token
 
 class AuthModel:
     def __init__(self):
@@ -18,7 +19,7 @@ class AuthModel:
 
         if user:
             ### User not empty 
-            token = self.generate_jwt_token({"id":national_id})
+            token = generate_jwt_token({"id":national_id})
             strinfied = "{}".format(token)
 
             data = {
@@ -76,8 +77,8 @@ class AuthModel:
         cursor = self.db.cursor()
         cursor.execute(query, user)
         self.db.commit()
-        token = self.generate_jwt_token(user)
-
+        token = generate_jwt_token(user)
+        
         response = {
                     "token": token,
                     "user": {
@@ -95,13 +96,6 @@ class AuthModel:
 
                 
         return response
-
-    def generate_jwt_token(self, payload):
-        fileDir = os.path.dirname(os.path.realpath('__file__'))
-        filename = os.path.join(fileDir, './utils/keys/jwt-key')
-        secret_key = open(filename).read()
-        token = jwt.encode(payload, secret_key, algorithm='HS256').decode('utf-8')
-        return token
 
     def reset_password(self, national_id, email, password):
         cursor = self.db.cursor()
@@ -124,3 +118,7 @@ class AuthModel:
                 "email": email
                 }
             return response
+        else:
+            return {
+                "message": "User not registered"
+            }
