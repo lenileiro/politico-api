@@ -35,6 +35,7 @@ env:
 
 script:
     - coverage run --source=app/api -m pytest test && coverage report
+    - coverage report -m
 
 after_success:
     - coveralls
