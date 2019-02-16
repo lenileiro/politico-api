@@ -13,14 +13,14 @@ services:
   - postgresql
 
 before_script:
-  - PYTHONDONTWRITEBYTECODE=1 python app/DB/drop_users.py
+  - PYTHONDONTWRITEBYTECODE=1 python app/DB/user/drop_users.py
   - sudo -u postgres psql -c "CREATE DATABASE politico;" 
   - sudo -u postgres psql -c "CREATE SCHEMA IF NOT EXISTS politico;"
   - sudo -u postgres psql -c "CREATE USER admin WITH PASSWORD 'admin123';"
   - sudo -u postgres psql -c "ALTER USER admin WITH SUPERUSER;"
 
   - PYTHONDONTWRITEBYTECODE=1 python app/DB/create_table.py
-  - PYTHONDONTWRITEBYTECODE=1 python app/DB/mock_user.py
+  - PYTHONDONTWRITEBYTECODE=1 python app/DB/user/mock_user.py
 
 addons:
   postgresql: "10"
