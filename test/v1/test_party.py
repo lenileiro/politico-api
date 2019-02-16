@@ -36,6 +36,12 @@ class TestGetRequest(BaseTest):
         self.assertEqual(result["status"], 200)
         self.assertEqual(result["data"][0]["id"], 1)
 
+    def test_invalid_individual_get_request(self):
+        response = self.client.get(
+            "/api/v1/parties/1000000221", content_type="application/json")
+        result = json.loads(response.data.decode('utf-8'))
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(result["status"], 400)
 class TestPatchRequest(BaseTest):    
     def test_invalid_patch_request(self):
         response = self.client.patch('/api/v1/parties/10000/name', data=json.dumps(edit_party), content_type="application/json")
@@ -50,6 +56,13 @@ class TestPatchRequest(BaseTest):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(result["status"], 200)
         self.assertEqual(result["data"][0]["name"], "new political party name")
+    
+    def test_invalid_name_patch_request(self):
+        response = self.client.patch('/api/v1/parties/1/name', data=json.dumps({}), content_type="application/json")
+        result = json.loads(response.data.decode('utf-8'))
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(result["status"], 400)
+
 
 class TestPostRequest(BaseTest):    
     def test_valid_post_request(self):
