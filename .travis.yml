@@ -13,7 +13,7 @@ services:
   - postgresql
 
 before_script:
-  - PYTHONDONTWRITEBYTECODE=1 python app/DB/user/drop_users.py
+  - PYTHONDONTWRITEBYTECODE=1 python app/DB/users/drop_users.py
   - sudo -u postgres psql -c "CREATE DATABASE politico;" 
   - sudo -u postgres psql -c "CREATE SCHEMA IF NOT EXISTS politico;"
   - sudo -u postgres psql -c "CREATE USER admin WITH PASSWORD 'admin123';"
