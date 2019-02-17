@@ -58,7 +58,7 @@ class TestGetRequest(BaseTest):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(result["status"], 200)
         self.assertEqual(result["data"][0]["id"], 1)
-    
+
     def test_individual_get_request_not_found(self):
         response = self.client.get(
             "/api/v1/offices/10000320", content_type="application/json")

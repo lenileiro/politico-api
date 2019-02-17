@@ -5,13 +5,13 @@ from psycopg2 import connect
 def connect_to_db(config=None):
 
     if config == 'testing':
-        db_name = os.getenv('TEST_DB')
+        db_name = os.getenv('DATABASE_TEST_URL')
     else:
-        db_name = os.getenv('DB_NAME')
+        db_name = os.getenv('DATABASE_URL')
 
-    host = os.getenv('DB_HOST')
-    user = os.getenv('DB_USERNAME')
-    password = os.getenv('DB_PASSWORD')
+    host = os.getenv('DATABASE_HOST')
+    user = os.getenv('DATABASE_USERNAME')
+    password = os.getenv('DATABASE_PASSWORD')
 
     return connect(
         database=db_name,
@@ -19,7 +19,8 @@ def connect_to_db(config=None):
         user=user,
         password=password
     )
-    
+
+
 def create_users_table(cur):
     cur.execute(
         """CREATE TABLE IF NOT EXISTS politico.user (

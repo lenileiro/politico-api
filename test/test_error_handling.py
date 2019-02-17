@@ -1,7 +1,10 @@
-import json, unittest, instance
+import json
+import unittest
+import instance
 from app import create_app
 
 app = create_app("testing")
+
 
 class TestErrorCodes(unittest.TestCase):
     """ Test error codes 404, 405 and 500 """

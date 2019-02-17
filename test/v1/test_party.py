@@ -10,7 +10,7 @@ class TestDeleteRequest(BaseTest):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(result["status"], 400)
         self.assertEqual(result["data"][0]["message"], "Party Id not found")
-    
+
     def test_valid_delete_request(self):
         response = self.client.delete(
             "/api/v1/parties/2", content_type="application/json")
@@ -35,7 +35,7 @@ class TestGetRequest(BaseTest):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(result["status"], 200)
         self.assertEqual(result["data"][0]["id"], 1)
-    
+
     def test_invalid_individual_get_request(self):
         response = self.client.get(
             "/api/v1/parties/1000000221", content_type="application/json")
@@ -65,7 +65,7 @@ class TestPatchRequest(BaseTest):
         response = self.client.patch(
             '/api/v1/parties/1/name', data=json.dumps(edit_party),
             content_type="application/json")
-            
+
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(result["status"], 200)
