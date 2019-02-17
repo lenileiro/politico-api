@@ -1,24 +1,27 @@
-from flask import Flask, make_response, jsonify, render_template
-from instance.config import app_config
-from app.DB.tables import init_db
+"""Main Application Logic """
+from flask import Flask, render_template, jsonify, make_response
+from flask_cors import CORS
+
+from instance import config
+
 
 def create_app(config_name):
+    '''Function to create a flask app depending on the configuration passed'''
+
     app = Flask(__name__)
-    app.config.from_object(app_config[config_name])
+    CORS(app)
+    app.config.from_object(config.app_config[config_name])
+    app.url_map.strict_slashes = False
+
     with app.app_context():
-        init_db(app.config['DATABASE_URI'])
-
-    from .api.v1.views import party_views, office_views
-    app.register_blueprint(party_views.parties_route)
-    app.register_blueprint(office_views.office_route)
-
-    from .api.v2.views import auth_views
-    app.register_blueprint(auth_views.auth_route)
+        from app.v1.views import party, office
+        app.register_blueprint(party.bp)
+        app.register_blueprint(office.bp)
 
     @app.route("/")
     def index():
         return render_template("api-docs.html")
-        
+
     @app.errorhandler(404)
     def resource_not_found(message):
         """ Handling resource not found """
@@ -50,4 +53,3 @@ def create_app(config_name):
     app.register_error_handler(500, server_internal_error)
 
     return app
-    
