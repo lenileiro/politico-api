@@ -43,7 +43,7 @@ env:
   - DATABASE_HOST='localhost'
 
 script:
-    - coverage run --source=app/api -m pytest test && coverage report
+    - coverage run --source=app/ -m pytest test && coverage report
 
 after_success:
     - coveralls
