@@ -18,6 +18,7 @@ before_script:
   - sudo -u postgres psql -c "CREATE SCHEMA IF NOT EXISTS politico;"
   - sudo -u postgres psql -c "CREATE USER admin WITH PASSWORD 'admin123';"
   - sudo -u postgres psql -c "ALTER USER admin WITH SUPERUSER;"
+  - sudo python DB/travisdb.py
 
 addons:
   postgresql: "10"
@@ -32,7 +33,9 @@ env:
   - export PSYCOPG_DEBUG=1
 
   - DATABASE_TEST_URL="test_politico"
-  - DATABASE_URL="dbname='politico' user='admin' host='localhost' password='admin123'"
+  - DATABASE_URL="politico"
+
+  - DATABASE_URI="dbname='politico' user='admin' host='localhost' password='admin123'"
 
   - DATABASE_USERNAME="admin"
   - DATABASE_PASSWORD="admin123"
