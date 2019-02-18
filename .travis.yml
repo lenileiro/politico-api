@@ -27,7 +27,14 @@ addons:
 env:
   global:
   - PGPORT=5433
-  - DATABASE_URL="dbname='politico' user='admin' host='localhost' password='admin123'"
+  - APP_SETTINGS="testing"
+  - export PSYCOPG_DEBUG=1
+
+  - DATABASE_TEST_URL="test_politico"
+  - DATABASE_URL="politico"
+
+  - DATABASE_USERNAME="admin"
+  - DATABASE_PASSWORD="admin123"
 
 script:
     - coverage run --source=app/api -m pytest test && coverage report
