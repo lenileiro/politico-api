@@ -17,7 +17,7 @@ def connect_to_db(config=None):
         database=db_name,
         host=host,
         user=user,
-        password=password
+        password=password,
     )
 
 

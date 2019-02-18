@@ -6,7 +6,7 @@ from flask import current_app
 
 from DB.createdb import connect_to_db
 
-conn = connect_to_db(current_app.config.get('APP_SETTINGS'))
+conn = connect_to_db(current_app.config.get('APP_SETTINGS', None))
 conn.set_session(autocommit=True)
 cursor = conn.cursor()
 
