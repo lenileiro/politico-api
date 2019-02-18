@@ -2,7 +2,7 @@ import psycopg2
 from datetime import datetime
 import os
 
-DATABASE_URI = os.getenv('DATABASE_URL','')
+DATABASE_URI = os.getenv('DATABASE_URI','')
 con = psycopg2.connect(DATABASE_URI)
 
 

@@ -18,7 +18,8 @@ before_script:
   - sudo -u postgres psql -c "CREATE SCHEMA IF NOT EXISTS politico;"
   - sudo -u postgres psql -c "CREATE USER admin WITH PASSWORD 'admin123';"
   - sudo -u postgres psql -c "ALTER USER admin WITH SUPERUSER;"
-  - python DB/travisdb.py
+  - python DB/users/travisdb.py
+  - python DB/users/mock_user.py
 
 addons:
   postgresql: "10"
