@@ -3,7 +3,7 @@ python:
     - "3.6"
 
 install:
-    - pip install -r requirements.txt
+    - pip3 install -r requirements.txt
 
 env:
   - DATABASE_URL="dbname='politico' user='admin' host='localhost' password='admin123'"
