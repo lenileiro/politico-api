@@ -18,6 +18,9 @@ def create_app(config_name):
         app.register_blueprint(party.bp)
         app.register_blueprint(office.bp)
 
+        from .v2.views import auth_views
+        app.register_blueprint(auth_views.auth_route)
+
     @app.route("/")
     def index():
         return render_template("api-docs.html")
