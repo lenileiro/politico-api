@@ -116,3 +116,4 @@ def return_political_party(party_id):
       return make_response(jsonify({"status": 404,
                                       "data": [{
                                           "message": "Party Id not found"}]})), 404
+                                          

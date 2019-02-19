@@ -25,3 +25,4 @@ class TestErrorCodes(unittest.TestCase):
 
         self.assertEqual(response.status_code, 405)
         self.assertEqual(result['status'], 405)
+        

@@ -43,3 +43,4 @@ class TestGetRequest(BaseTest):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(result["status"], 200)
         self.assertEqual(result["data"][0]["id"], 1)
+        

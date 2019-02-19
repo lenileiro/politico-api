@@ -79,3 +79,4 @@ class TestPostRequest(BaseTest):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(result["status"], 400)
         self.assertEqual(result["message"], "Name cannot be empty")
+        

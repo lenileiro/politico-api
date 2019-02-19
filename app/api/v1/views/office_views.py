@@ -66,3 +66,4 @@ def return_political_party(party_id):
             "status": 404,
             "message": "Office Id not found"
         })), 404
+        

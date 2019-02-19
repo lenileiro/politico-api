@@ -44,3 +44,4 @@ class OfficeModel:
     def return_offices(self):
         """Return all offices in the list"""
         return self.offices
+        
