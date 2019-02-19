@@ -1,9 +1,10 @@
 import os
 from psycopg2 import connect
 from datetime import datetime
+from flask import current_app
 
 def connect_to_db(config=None):
-    db_name=''
+    db_name = current_app.config.get('DATABASE_URI')
     if config == 'testing':
         db_name = os.getenv('DATABASE_TEST_URL')
     else:
@@ -30,6 +31,7 @@ def create_users_table(cur):
             created_at TIMESTAMP);""")
 
 def init_db(config=None):
+
     conn = connect_to_db(config=config)
     conn.set_session(autocommit=True)
     cur = conn.cursor()

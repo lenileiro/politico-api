@@ -13,11 +13,13 @@ class Testing(Config):
     DEBUG = True
     TESTING = True
     DATABASE_URI = os.getenv('DATABASE_TEST_URL', '')
+
 class Production(Config):
     """ The configurations for production """
     DEBUG = False
     TESTING = False
     DATABASE_URI = os.getenv("DATABASE_PROC_URL",'')
+
 app_config = {
     'development': Development,
     'testing': Testing,
