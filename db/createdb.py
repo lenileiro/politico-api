@@ -5,11 +5,6 @@ from flask import current_app
 
 def connect_to_db(config=None):
     db_name = current_app.config.get('DATABASE_URI')
-    if config == 'testing':
-        db_name = os.getenv('DATABASE_TEST_URL')
-    else:
-        db_name = os.getenv('DATABASE_URL')
-
     return connect(db_name)
 
 def create_users_table(cur):
