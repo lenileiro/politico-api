@@ -10,6 +10,7 @@ def connect_to_db(config=None):
         db_name = os.getenv('DATABASE_URL')
 
     return connect(db_name)
+    
 def create_users_table(cur):
     cur.execute("""
         CREATE SCHEMA IF NOT EXISTS politico;

@@ -8,8 +8,8 @@ class TestDeleteRequest(BaseTest):
         response = self.client.delete(
             "/api/v1/parties/10000", content_type="application/json")
         result = json.loads(response.data.decode('utf-8'))
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(result["status"], 400)
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(result["status"], 404)
         self.assertEqual(result["data"][0]["message"], "Party Id not found")
     
     def test_valid_delete_request(self):

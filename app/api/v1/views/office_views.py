@@ -63,6 +63,6 @@ def return_political_party(party_id):
                                           }]})), 200
     else:
        return make_response(jsonify({
-            "status": 400,
+            "status": 404,
             "message": "Office Id not found"
-        })), 400
+        })), 404

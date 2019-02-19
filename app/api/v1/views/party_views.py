@@ -18,9 +18,9 @@ def delete_politicial_party(party_id):
                                       "data": [{
                                           "message": "delete successful"}]})), 200
     else:
-        return make_response(jsonify({"status": 400,
+        return make_response(jsonify({"status": 404,
                                       "data": [{
-                                          "message": "Party Id not found"}]})), 400
+                                          "message": "Party Id not found"}]})), 404
 
 ###edit party
 @parties_route.route('/<int:party_id>/name', methods=['PATCH']) 
@@ -113,6 +113,6 @@ def return_political_party(party_id):
                                           "logoUrl": response[0]["logoUrl"]
                                           }]})), 200
     else:
-      return make_response(jsonify({"status": 400,
+      return make_response(jsonify({"status": 404,
                                       "data": [{
-                                          "message": "Party Id not found"}]})), 400
+                                          "message": "Party Id not found"}]})), 404
