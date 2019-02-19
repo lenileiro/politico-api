@@ -1,11 +1,17 @@
-""" Test for Office endpoints """
-
 import json
-from .base_test import BaseTest 
-from utils.v1.dummy_office import create_office_1, create_office_2, create_office_3
-class TestPostRequest(BaseTest):    
+from .base import BaseTest
+
+
+class TestPostRequest(BaseTest):
+
     def test_valid_post_request(self):
-        response = self.client.post('/api/v1/offices', data=json.dumps(create_office_1), content_type="application/json")
+        create_office = {
+            "type": 'national',
+            "name": "President"
+        }
+        response = self.client.post(
+            '/api/v1/offices', data=json.dumps(create_office),
+            content_type="application/json")
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 201)
         self.assertEqual(result["status"], 201)
@@ -13,14 +19,24 @@ class TestPostRequest(BaseTest):
         self.assertEqual(result["data"][0]["name"], "President")
 
     def test_invalid_post_request_1(self):
-        response = self.client.post('/api/v1/offices', data=json.dumps(create_office_2), content_type="application/json")
+        create_office = {
+            "type": 'national'
+        }
+        response = self.client.post(
+            '/api/v1/offices', data=json.dumps(create_office),
+            content_type="application/json")
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 400)
         self.assertEqual(result["status"], 400)
         self.assertEqual(result["message"], "Name cannot be empty")
-    
+
     def test_invalid_post_request_2(self):
-        response = self.client.post('/api/v1/offices', data=json.dumps(create_office_3), content_type="application/json")
+        create_office = {
+            "name": "President"
+        }
+        response = self.client.post(
+            '/api/v1/offices', data=json.dumps(create_office),
+            content_type="application/json")
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 400)
         self.assertEqual(result["status"], 400)
@@ -34,7 +50,6 @@ class TestGetRequest(BaseTest):
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(result["status"], 200)
-    
 
     def test_valid_individual_get_request(self):
         response = self.client.get(
@@ -43,3 +58,11 @@ class TestGetRequest(BaseTest):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(result["status"], 200)
         self.assertEqual(result["data"][0]["id"], 1)
+
+    def test_individual_get_request_not_found(self):
+        response = self.client.get(
+            "/api/v1/offices/10000320", content_type="application/json")
+        result = json.loads(response.data.decode('utf-8'))
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(result["status"], 400)
+        self.assertEqual(result["message"], "Office Id not found")
