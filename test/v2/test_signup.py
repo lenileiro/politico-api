@@ -21,9 +21,19 @@ class TestPostRequest(BaseTest):
             
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 201)
+        self.assertEqual(result["status"], 201)
         self.assertIsInstance(result["status"], int)
-        self.assertIsInstance(result["data"], str)
-        self.assertEqual(result['data'],"user created")
+        self.assertIsInstance(result["data"], dict)
+        self.assertIsInstance(result["data"]["token"], str)
+        self.assertIsInstance(result["data"]["user"], dict)
+        self.assertIsInstance(result["data"]["user"]["national_id"], int)
+        self.assertIsInstance(result["data"]["user"]["firstname"], str)
+        self.assertIsInstance(result["data"]["user"]["lastname"], str)
+        self.assertIsInstance(result["data"]["user"]["othername"], str)
+        self.assertIsInstance(result["data"]["user"]["email"], str)
+        self.assertIsInstance(result["data"]["user"]["phone"], str)
+        self.assertIsInstance(result["data"]["user"]["passporturl"], str)
+        self.assertIsInstance(result["data"]["user"]["isadmin"], str)
     
     def test_account_exists(self):
         user = {
@@ -61,7 +71,7 @@ class TestPostRequest(BaseTest):
         self.assertIsInstance(result["message"], str)
         self.assertEqual(result["message"], "User exits in Database")
 
-    def test_account_creation_lack_national_id(self):
+    def test_account_creation_missing_national_id(self):
         user = {
             "firstname": "John",
             "lastname": "Joe",
@@ -82,7 +92,7 @@ class TestPostRequest(BaseTest):
         self.assertIsInstance(result["message"], str)
         self.assertEqual(result['message'],"national_id cannot be empty")
 
-    def test_account_creation_lack_firstname(self):
+    def test_account_creation_missing_firstname(self):
         user = {
             "national_id": 32308961,
             "lastname": "Joe",
@@ -103,7 +113,7 @@ class TestPostRequest(BaseTest):
         self.assertIsInstance(result["message"], str)
         self.assertEqual(result['message'],"firstname cannot be empty")
 
-    def test_account_creation_lack_lastname(self):
+    def test_account_creation_missing_lastname(self):
         user = {
             "national_id": 32308961,
             "firstname": "John",
@@ -124,7 +134,7 @@ class TestPostRequest(BaseTest):
         self.assertIsInstance(result["message"], str)
         self.assertEqual(result['message'],"lastname cannot be empty")
 
-    def test_account_creation_lack_othername(self):
+    def test_account_creation_missing_othername(self):
         user = {
             "national_id": 32308961,
             "firstname": "John",
@@ -145,7 +155,7 @@ class TestPostRequest(BaseTest):
         self.assertIsInstance(result["message"], str)
         self.assertEqual(result['message'],"othername cannot be empty")
 
-    def test_account_creation_lack_email(self):
+    def test_account_creation_missing_email(self):
         user = {
             "national_id": 32308961,
             "firstname": "John",
@@ -166,7 +176,7 @@ class TestPostRequest(BaseTest):
         self.assertIsInstance(result["message"], str)
         self.assertEqual(result['message'],"email cannot be empty")
 
-    def test_account_creation_lack_isadmin(self):
+    def test_account_creation_missing_isadmin(self):
         user = {
             "national_id": 32308961,
             "firstname": "John",
@@ -187,7 +197,7 @@ class TestPostRequest(BaseTest):
         self.assertIsInstance(result["message"], str)
         self.assertEqual(result['message'],"isadmin cannot be empty")
 
-    def test_account_creation_lack_phone(self):
+    def test_account_creation_missing_phone(self):
         user = {
             "national_id": 32308961,
             "firstname": "John",
@@ -208,7 +218,7 @@ class TestPostRequest(BaseTest):
         self.assertIsInstance(result["message"], str)
         self.assertEqual(result['message'],"phone cannot be empty")
 
-    def test_account_creation_lack_password(self):
+    def test_account_creation_missing_password(self):
         user = {
             "national_id": 32308961,
             "firstname": "John",
@@ -229,7 +239,7 @@ class TestPostRequest(BaseTest):
         self.assertIsInstance(result["message"], str)
         self.assertEqual(result['message'],"password cannot be empty")
     
-    def test_account_creation_lack_passporturl(self):
+    def test_account_creation_missing_passporturl(self):
         user = {
             "national_id": 32308961,
             "firstname": "John",

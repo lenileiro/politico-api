@@ -54,6 +54,21 @@ class AuthModel(Base):
         
         cur.execute(sql, user)
 
-        return "user created"
+        response = {
+                    "token": "token",
+                    "user": {
+                        "national_id": params.national_id,
+                        "firstname": params.firstname,
+                        "lastname": params.lastname,
+                        "othername": params.othername,
+                        "email": params.email,
+                        "isadmin": params.isadmin,
+                        "phone": params.phone,
+                        "passporturl": params.passporturl
+                    }
+                }
+
+                
+        return response
 
     
