@@ -55,7 +55,28 @@ def create_account():
 
 @bp.route('/login', methods=['POST'])
 def login_user():
-    pass
+    data = request.get_json()
+
+    national_id = data.get('national_id')
+    password = data.get('password')
+
+    if not national_id:
+        return sp.error("national_id cannot be empty", 400)
+    if not password:
+        return sp.error("password cannot be empty", 400)
+
+    else:
+
+        userfound = '{}'.format(auth.get("user", national_id=national_id))
+        if userfound != "None":
+            response = auth.login_user(national_id, password)
+            
+            return sp.sdict(response)
+
+        else:
+             return sp.error("User is not registered", 404)
+
+        
 
 @bp.route('/reset/', methods=['POST'])
 def reset_password():

@@ -1,7 +1,7 @@
 from flask import current_app
 from .createdb import connect_to_db
 from datetime import datetime
-
+from werkzeug.security import generate_password_hash, check_password_hash
 
 conn = connect_to_db(current_app.config.get('DATABASE_URI'))
 conn.set_session(autocommit=True)
@@ -41,7 +41,7 @@ class AuthModel(Base):
             "email": params.email,
             "isadmin": params.isadmin,
             "phone": params.phone,
-            "password": params.password,
+            "password": generate_password_hash(params.password),
             "passporturl": params.passporturl,
             "created_at": created_at
         }
@@ -71,4 +71,35 @@ class AuthModel(Base):
                 
         return response
 
-    
+    @staticmethod
+    def login_user(national_id, password):
+        cur.execute(
+            """SELECT * FROM politico.user where national_id={} """.format(national_id)
+        )
+        user = cur.fetchone()
+
+        data = {
+                "token": "strinfied",
+                "user": {
+                "id": user[1],
+                "firstname": user[2],
+                "lastname": user[3],
+                "othername": user[4],
+                "email": user[5],
+                "phoneNumber": user[6],
+                "passportUrl": user[9],
+                "isAdmin": user[7]
+                }
+            }
+
+        stored_passord = user[8]
+        results = check_password_hash(stored_passord, password)
+
+        if results:
+            return data
+        else:
+            return {
+            "message": "Invalid Password"
+        }
+
+        
