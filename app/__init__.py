@@ -10,10 +10,14 @@ def create_app(config_name):
     app.config.from_object(app_config[config_name])
     app.app_context().push()
     #print(app.config['DATABASE_URI'])
+    init_db(app.config['DATABASE_URI'])
 
     from .api.v1.views import party, office
     app.register_blueprint(party.bp)
     app.register_blueprint(office.bp)
+
+    from .api.v2.views import auth
+    app.register_blueprint(auth.bp)
 
     @app.route("/")
     def index():

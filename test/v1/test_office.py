@@ -63,6 +63,6 @@ class TestGetRequest(BaseTest):
         response = self.client.get(
             "/api/v1/offices/10000320", content_type="application/json")
         result = json.loads(response.data.decode('utf-8'))
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(result["status"], 400)
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(result["status"], 404)
         self.assertEqual(result["message"], "Office Id not found")

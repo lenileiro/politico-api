@@ -40,8 +40,8 @@ class TestGetRequest(BaseTest):
         response = self.client.get(
             "/api/v1/parties/1000000221", content_type="application/json")
         result = json.loads(response.data.decode('utf-8'))
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(result["status"], 400)
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(result["status"], 404)
 
 
 class TestPatchRequest(BaseTest):
@@ -54,9 +54,9 @@ class TestPatchRequest(BaseTest):
             data=json.dumps(edit_party), content_type="application/json")
 
         result = json.loads(response.data.decode('utf-8'))
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(result["status"], 400)
-        self.assertEqual(result["data"]["message"], "Id not found")
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(result["status"], 404)
+        self.assertEqual(result["data"]["message"], "party not found")
 
     def test_valid_patch_request(self):
         edit_party = {

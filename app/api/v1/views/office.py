@@ -24,14 +24,14 @@ def create_office():
     name_data = data.get('name')
 
     if not type_data:
-        return sp.serialize_error("type cannot be empty", 400)
+        return sp.error("type cannot be empty", 400)
 
     if not name_data:
-        return sp.serialize_error("Name cannot be empty", 400)
+        return sp.error("Name cannot be empty", 400)
 
     else:
         new_info = office.create_office(type_data, name_data)
-        return sp.serialize_object_list(
+        return sp.slist(
             {
                 "id": new_info["id"],
                 "type": new_info["type"],
@@ -43,7 +43,7 @@ def create_office():
 def return_offices():
     response = office.return_offices()
 
-    return sp.serialize_object_dict(response)
+    return sp.sdict(response)
 
 
 @bp.route('/<int:party_id>', methods=['GET']) 
@@ -52,7 +52,7 @@ def find_office(party_id):
     response = office.find_office(party_id)
     if response:
 
-        return sp.serialize_object_list(
+        return sp.slist(
             {
                 "id": response[0]["id"],
                 "type": response[0]["type"],
@@ -60,4 +60,4 @@ def find_office(party_id):
             })
 
     else:
-        return sp.serialize_error("Office Id not found", 400)
+        return sp.error("Office Id not found", 404)
