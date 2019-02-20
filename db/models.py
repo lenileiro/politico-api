@@ -118,7 +118,7 @@ class AuthModel(Base):
             sql = """INSERT INTO politico.pass
                 (national_id, passkey) values (%(national_id)s, %(passkey)s)
                 """
-            passkey ='key-{}'.format(randint(101, 1000))
+            passkey = 'key-{}'.format(randint(101, 1000))
             cur.execute(sql, {"passkey": str(passkey), "national_id": national_id})
             return passkey
     
@@ -135,6 +135,9 @@ class AuthModel(Base):
             cur.execute(sql, {"password": '{}'.format(generate_password_hash(password)), "national_id": national_id})
 
             return "password reset complete"
+        
+        else:
+            return False
 
      
         

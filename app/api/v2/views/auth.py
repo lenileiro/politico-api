@@ -107,5 +107,8 @@ def reset_password():
         return sp.error("password cannot be empty", 400)
     else:
         response = auth.reset_password(national_id, passkey, password)
+        if response:
+            return sp.sdict(response)
+        else:
+            return sp.error("Incorrect key Provided", 404)
         
-        return sp.sdict(response)
