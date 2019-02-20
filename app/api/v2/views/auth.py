@@ -70,14 +70,42 @@ def login_user():
         userfound = '{}'.format(auth.get("user", national_id=national_id))
         if userfound != "None":
             response = auth.login_user(national_id, password)
-            
-            return sp.sdict(response)
+
+            if response != "Invalid Password":
+                return sp.sdict(response)
+            else:
+                return sp.sdict({"message": "Invalid Password"}, 404)
 
         else:
              return sp.error("User is not registered", 404)
 
         
 
+@bp.route('/reset/key', methods=['POST'])
+def reset_key():
+    data = request.get_json()
+    national_id = data.get('national_id')
+
+    if not national_id:
+        return sp.error("national_id cannot be empty", 400)
+    else:
+        response = auth.reset_key(national_id)
+        return sp.sdict(response)
+
 @bp.route('/reset/', methods=['POST'])
 def reset_password():
-    pass
+    data = request.get_json()
+    national_id = data.get('national_id')
+    passkey = data.get('passkey')
+    password = data.get('password')
+
+    if not national_id:
+        return sp.error("national_id cannot be empty", 400)
+    if not passkey:
+        return sp.error("passkey cannot be empty", 400)
+    if not password:
+        return sp.error("password cannot be empty", 400)
+    else:
+        response = auth.reset_password(national_id, passkey, password)
+        
+        return sp.sdict(response)
