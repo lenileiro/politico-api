@@ -3,6 +3,7 @@ import unittest
 import instance
 from app import create_app
 from db.createdb import connect_to_db
+from db.user.mock_signup import main
 
 
 class BaseTest(unittest.TestCase):
@@ -12,6 +13,8 @@ class BaseTest(unittest.TestCase):
         self.app = create_app('testing')
         self.app.app_context().push()
         self.client = self.app.test_client()
+        main()
+        
     
     def tearDown(self):
         conn = connect_to_db('testing')

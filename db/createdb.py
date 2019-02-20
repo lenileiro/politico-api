@@ -13,8 +13,8 @@ def create_users_table(cur):
         """)
     cur.execute(
         """CREATE TABLE IF NOT EXISTS politico.user (
-            id SERIAL PRIMARY KEY NOT NULL,
-            national_id INTEGER NOT NULL, 
+            id SERIAL NOT NULL,
+            national_id int NOT NULL PRIMARY KEY , 
             firstname VARCHAR (100) NOT NULL, 
             lastname VARCHAR (100) NOT NULL, 
             othername VARCHAR (100), 
@@ -25,6 +25,16 @@ def create_users_table(cur):
             passporturl VARCHAR (100) NOT NULL, 
             created_at TIMESTAMP);""")
 
+def create_reset_password_table(cur):
+    cur.execute(
+        """CREATE TABLE IF NOT EXISTS politico.pass(
+            id SERIAL PRIMARY KEY NOT NULL,
+            passkey VARCHAR (255) NOT NULL,
+            national_id INTEGER NOT NULL,
+            FOREIGN KEY (national_id) REFERENCES politico.user (national_id));"""
+    )
+
+    
 def init_db(config=None):
 
     conn = connect_to_db(config=config)
@@ -32,6 +42,7 @@ def init_db(config=None):
     cur = conn.cursor()
 
     create_users_table(cur)
+    create_reset_password_table(cur)
 
     cur.close()
     conn.commit()
