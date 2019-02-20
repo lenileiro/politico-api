@@ -74,7 +74,7 @@ def login_user():
             if response != "Invalid Password":
                 return sp.sdict(response)
             else:
-                return sp.sdict({"message": "Invalid Password"}, 404)
+                return sp.sdict({"message": "Invalid Password"}, 400)
 
         else:
              return sp.error("User is not registered", 404)
@@ -110,5 +110,5 @@ def reset_password():
         if response:
             return sp.sdict(response)
         else:
-            return sp.error("Incorrect key Provided", 404)
+            return sp.error("Incorrect key Provided", 400)
         
