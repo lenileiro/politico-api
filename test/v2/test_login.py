@@ -6,7 +6,7 @@ class TestPostRequest(BaseTest):
     def test_user_login(self):
         user = {
             "national_id": 222222,
-            "password":"123"
+            "password":"123456789"
         }
         response = self.client.post(
             '/api/v2/auth/login', data=json.dumps(user),

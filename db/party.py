@@ -38,7 +38,7 @@ class PartyModel:
 
         Returns:
             Returns patry dictionary for party found
-            Returns empty list for party not found.
+            Rerurns empty list for party not found.
         """
 
         party_found = [party for party in self.db if party['id'] == pid]

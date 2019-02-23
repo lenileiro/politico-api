@@ -16,8 +16,9 @@ def create_app(config_name):
     app.register_blueprint(party.bp)
     app.register_blueprint(office.bp)
 
-    from .api.v2.views import auth
+    from .api.v2.views import auth , party
     app.register_blueprint(auth.bp)
+    app.register_blueprint(party.bp)
 
     @app.route("/")
     def index():

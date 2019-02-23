@@ -1,12 +1,15 @@
-from collections import namedtuple 
+import re
+from collections import namedtuple
 from flask import Blueprint, request
 from utils.serializer import Serializer as sp
+from flask_restful import reqparse
+from utils.validations import Validator as vl
 
-from db.models import AuthModel, Base
+from ..models.auth import AuthModel
 
 auth = AuthModel()
 
-bp = Blueprint('auth-v2', __name__, url_prefix='/api/v2/auth') 
+bp = Blueprint('auth-v2', __name__, url_prefix='/api/v2/auth')
 
 
 @bp.route('/signup', methods=['POST'])
@@ -22,7 +25,24 @@ def create_account():
     isadmin = data.get('isadmin')
     password = data.get('password')
     passporturl = data.get('passporturl')
-    
+
+    email_format = re.compile(
+        r"(^[a-zA-Z0-9_.-]+@[a-zA-Z-]+\.[.a-zA-Z-]+$)")
+    url_format = re.compile(
+        r"^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"
+    )
+
+    if vl.is_blank(passporturl) or vl.is_blank(password) or vl.is_blank(isadmin) or vl.is_blank(phone) or vl.is_blank(email) or vl.is_blank(firstname) or vl.is_blank(lastname) or vl.is_blank(othername) or vl.is_blank(email):
+        return sp.error('All fields are required', 400)
+    if not (isinstance(national_id, int)):
+        return sp.error('National ID should be numbers', 400)
+    elif not (re.match(email_format, email)):
+        return sp.error('Invalid email. Ensure email is of the form example@mail.com', 400)
+    elif not (re.match(url_format, passporturl)):
+        return sp.error('Invalid passport url format', 400)
+    if len(password) < 8:
+        return sp.error('Password should be atleast 8 characters', 400)
+
     if not national_id:
         return sp.error("national_id cannot be empty", 400)
     if not firstname:
@@ -45,13 +65,18 @@ def create_account():
         userfound = '{}'.format(auth.get("user", national_id=national_id))
 
         if userfound != "None":
-            return sp.error("User exits in Database", 404)
+            return sp.error("User exits in Database", 409)
 
         else:
-            Params = namedtuple("Params", ["national_id", "firstname", "lastname", "othername", "email", "phone", "isadmin", "password", "passporturl"])
-            params = Params(national_id, firstname, lastname, othername, email, phone, isadmin, password, passporturl)
+            Params = namedtuple(
+                "Params", ["national_id", "firstname", "lastname", "othername", "email", "phone", "isadmin", "password", "passporturl"]
+                )
+            params = Params(
+                national_id, firstname, lastname, othername, email, phone, isadmin, password, passporturl
+                )
             response = auth.insert_user(params)
             return sp.sdict(response, 201)
+
 
 @bp.route('/login', methods=['POST'])
 def login_user():
@@ -59,6 +84,13 @@ def login_user():
 
     national_id = data.get('national_id')
     password = data.get('password')
+    if vl.is_blank(password):
+        return sp.error('password fields is required', 400)
+    if not (isinstance(national_id, int)):
+        return sp.error('National ID should be numbers', 400)
+    if len(password) < 8:
+        return sp.error('Password should be atleast 8 characters', 400)
+
 
     if not national_id:
         return sp.error("national_id cannot be empty", 400)
@@ -71,20 +103,21 @@ def login_user():
         if userfound != "None":
             response = auth.login_user(national_id, password)
 
-            if response != "Invalid Password":
+            if response:
                 return sp.sdict(response)
             else:
                 return sp.sdict({"message": "Invalid Password"}, 400)
 
         else:
-             return sp.error("User is not registered", 404)
+            return sp.error("User is not registered", 404)
 
         
-
 @bp.route('/reset/key', methods=['POST'])
 def reset_key():
     data = request.get_json()
     national_id = data.get('national_id')
+    if not (isinstance(national_id, int)):
+        return sp.error('National ID should be numbers', 400)
 
     if not national_id:
         return sp.error("national_id cannot be empty", 400)
@@ -92,12 +125,22 @@ def reset_key():
         response = auth.reset_key(national_id)
         return sp.sdict(response)
 
+
 @bp.route('/reset/', methods=['POST'])
 def reset_password():
     data = request.get_json()
     national_id = data.get('national_id')
     passkey = data.get('passkey')
     password = data.get('password')
+
+    if not national_id:
+        return sp.error("national_id cannot be empty", 400)
+        
+    if len(password) < 8:
+        return sp.error('Password should be atleast 8 characters', 400)
+
+    if not national_id:
+        return sp.error("national_id cannot be empty", 400)
 
     if not national_id:
         return sp.error("national_id cannot be empty", 400)
@@ -110,5 +153,4 @@ def reset_password():
         if response:
             return sp.sdict(response)
         else:
-            return sp.error("Incorrect key Provided", 400)
-        
+            return sp.error("key Provided does not work", 401)

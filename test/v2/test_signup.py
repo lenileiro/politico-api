@@ -5,16 +5,16 @@ class TestPostRequest(BaseTest):
 
     def test_account_creation(self):
         user = {
-            "national_id": 32308961,
-            "firstname": "John",
-            "lastname": "Joe",
-            "othername": "smith",
-            "email": "johndoe@gmail.com",
-            "isadmin": "False",
-            "phone": "+254724862149",
-            "password":"123",
-            "passporturl": "demo.com/image.jpg"
-        }
+                "national_id": 32308961,
+                "firstname": "john",
+                "lastname": "Joe",
+                "othername": "smith",
+                "email": "johndoe@gmail.com",
+                "isadmin": "False",
+                "phone": "+254724862149",
+                "password":"123456789",
+                "passporturl": "https://demo.com/image.jpg"
+            }
         response = self.client.post(
             '/api/v2/auth/signup', data=json.dumps(user),
             content_type="application/json")
